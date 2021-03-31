@@ -1,0 +1,17 @@
+@use "../../styles/variables" as *;
+@import '../../styles/mixins';
+.radio {
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.5rem;
+    &:checked {
+        border: 1px solid red;
+        &~label {
+            color: black;
+        }
+    }
+    &~label {
+        padding-bottom: 0px;
+        color: $slate;
+    }
+}

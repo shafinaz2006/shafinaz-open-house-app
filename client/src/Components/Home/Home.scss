@@ -1,0 +1,8 @@
+@import '../../Styles/abstracts/mixins.scss';
+.home {
+    &__heading {
+        @include h1-page-header;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+}

@@ -1,0 +1,11 @@
+.createProfile {
+    &__type {
+        display: flex;
+        flex-direction: row;
+    }
+    &__typeRadio {
+        display: flex;
+        flex-direction: row;
+        width: 6rem;
+    }
+}

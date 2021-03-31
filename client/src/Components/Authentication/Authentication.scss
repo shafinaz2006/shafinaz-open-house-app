@@ -1,0 +1,14 @@
+@import '../../Styles/abstracts/variables.scss';
+@import '../../Styles/abstracts/mixins.scss';
+.authentication {
+    &__formSubmitted {
+        height: 20rem;
+        @include flex-column;
+        align-items: center;
+        padding-top: 2rem;
+        @include h2-sub-header;
+    }
+    &__reg-form {
+        @include flex-column
+    }
+}

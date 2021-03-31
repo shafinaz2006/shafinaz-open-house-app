@@ -1,0 +1,17 @@
+@import '../../Styles/abstracts/mixins.scss';
+.pageContainer {
+    padding-left: 6.25rem;
+    padding-right: 6.25rem;
+    margin-bottom: 6rem;
+    @include flex-row;
+    justify-content: space-between;
+    padding-top: 2rem;
+    &__list {
+        width: 20%;
+    }
+    &__content {
+        width: 70%;
+        padding-right: 5%;
+        padding-left: 3rem;
+    }
+}

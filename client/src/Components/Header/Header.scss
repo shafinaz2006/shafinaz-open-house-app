@@ -1,0 +1,46 @@
+@import '../../Styles/abstracts/variables.scss';
+.nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    background-color: $color-primary-bg;
+    color: white;
+    // padding-bottom: 1.5rem;
+    &__logo-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    &__logoLink {
+        padding-left: 6.25rem;
+        font-family: 'Berlin Sans FB Demi';
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+        font-size: 1.5rem;
+        color: white;
+    }
+    &__logo {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: white;
+        margin-bottom: -6px;
+    }
+    &__link {
+        color: white;
+        padding-top: 0.8rem;
+        padding-right: 6.25rem;
+    }
+}
+
+.hero {
+    &__image {
+        height: 60vh;
+        width: 100%;
+        object-fit: cover
+    }
+}

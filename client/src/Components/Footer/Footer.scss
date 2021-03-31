@@ -1,0 +1,12 @@
+@import '../../Styles/abstracts/mixins.scss';
+@import '../../Styles/abstracts/variables.scss';
+.footer {
+    height: 3rem;
+    @include flex-row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(11, 19, 43);
+    color: white;
+    @include body-small;
+}
