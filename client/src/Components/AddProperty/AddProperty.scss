@@ -1,0 +1,10 @@
+.addProperty {
+    &__roomWashroomContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    &__room {
+        width: 45%;
+    }
+}

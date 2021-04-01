@@ -3,7 +3,7 @@ import './AssociateList.scss';
 import profilePic from '../../assets/icons/profileIcon.svg'
 const AssociateDetails = ({associate}) =>{
     let firstName= associate.name.split(' ')[0];
-    console.log(firstName);
+    console.log(associate.name);
     return(
         <section className='associateDetails'>
             <div className='associateDetails__profilePicDiv'>

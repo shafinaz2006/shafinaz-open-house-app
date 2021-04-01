@@ -5,7 +5,7 @@ function LeftBar(){
         <section className= 'leftBar'>
             <ul className='list'>
                 <li className='leftBar__item'><a href='/' className='link leftBar__link'>Home</a></li>
-                <li className='leftBar__item'><a href='/create-profile' className='link leftBar__link'>Create Your Profile</a></li>
+                <li className='leftBar__item'><a href='/profile' className='link leftBar__link'>Create Your Profile</a></li>
                 <li className='leftBar__item'><a href='/properties' className='link leftBar__link'>Available Properties </a></li>
                 <li className='leftBar__item'><a href='/properties/add-property' className='link leftBar__link'> Add new property </a></li>
                 <li className='leftBar__item'><a href='/associates' className='link leftBar__link'> Associates </a></li>

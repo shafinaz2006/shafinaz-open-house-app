@@ -13,7 +13,7 @@ const Associate = ({associate}) =>{
             <div className='associate__info'>
                 <h3 className='associate__name'>{associate.name}</h3>
                 <p className='associate__profession'>Profession: {associate.profession}</p> 
-                <a href = {`/associates/${associate.associateId}`} className='link button button--associate associate__detailsLink'>
+                <a href = {`/associates/${associate.userId}`} className='link button button--associate associate__detailsLink'>
                     Details
                 </a>
             </div>

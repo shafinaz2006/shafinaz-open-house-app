@@ -9,7 +9,7 @@ const AssociateList = ({associates}) => {
             <h2 className='associateList__heading'>Meet Our Associates</h2>
             {
                 associates.map(associate =>{
-                    return <Associate key={associate.associateId}
+                    return <Associate key={associate.userId}
                                 associate={associate}/>
                 })
             }

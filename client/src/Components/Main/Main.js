@@ -15,6 +15,7 @@ import AssociateDetails from '../Associates/AssociateDetails';
 import AddProperty from '../AddProperty/AddProperty';
 import BuyerChecklist from '../Checklist/BuyerChecklist';
 import SellerChecklist from '../Checklist/SellerChecklist';
+import Cookies from 'js-cookie';
 
 class Main extends React.Component {
 
@@ -24,6 +25,8 @@ class Main extends React.Component {
         errorMessageReg:'',
         errorMessageLogin: '',
         errorMessageCreateProfile: '',
+        currentUserId: '',
+        currentUserName: '',
     }
 
 // Handle Registration:
@@ -48,12 +51,26 @@ class Main extends React.Component {
     handleLogin = (user) =>{
         console.log('in handleLogin method', user);
         axios
-            .post('http://localhost:8080/login', user)
+            .post('http://localhost:8080/login', {username: user.username, password: user.password}, {withCredentials: true})
+            // .post('http://localhost:8080/login', user)
             .then(response =>{
                 
-                if(response.data.message.failure)
-                this.setState({errorMessageLogin: response.data.message.failure + ' Login again!!'})
-                
+                if(response.data.message.failure){
+                    this.setState({errorMessageLogin: response.data.message.failure + ' Login again!!'})
+
+                }
+                else{
+                    console.log('response data after login', response.data);
+                    this.setState({currentUserId: response.data.user.userId,
+                                    currentUserName: response.data.user.username});
+                    let username = response.data.user.username;
+                    let userId = response.data.user.userId;
+                    this.props.handleCookie(username, userId)
+                    
+                    console.log(this.state.currentUserId)
+                }
+
+            
             })
             .catch(error => {
                 console.log('Error in User Login', error);
@@ -61,16 +78,24 @@ class Main extends React.Component {
             });
     }
 
+
 // Handle Create Profile:
 
     handleCreateProfile = (newProfile) =>{
         console.log('in handle create profile method', newProfile);
+        axios
+            .post('http://localhost:8080/profile', newProfile)
+            .then(response =>{
+                console.log(response.data);
+
+            })
+            .catch(error => console.log('Error to create profile', error));
     }
 // Get all properties data:
 
     getPropertiesData = () =>{
         axios
-            .get('http://localhost:8080/properties')
+            .get('http://localhost:8080/properties', { withCredentials: true })
             .then(response => {
                 // console.log(response.data);
                 this.setState({properties: response.data});
@@ -84,7 +109,6 @@ class Main extends React.Component {
         axios
             .get('http://localhost:8080/associates')
             .then(response => {
-                // console.log(response.data);
                 this.setState({associates: response.data});
             })
             .catch(error => console.log('Error in associates data', error))
@@ -103,6 +127,8 @@ class Main extends React.Component {
             .catch(error => console.log('Error in add new property', error));
     }
 
+
+
 // CompoundDidMount():
 
     componentDidMount() {
@@ -111,6 +137,7 @@ class Main extends React.Component {
     }
     
     render(){
+        console.log('username in cookies-', Cookies.get('username'));
         if(this.state.properties && this.state.associates){
             return (
                 <main className='pageContainer'>
@@ -123,19 +150,19 @@ class Main extends React.Component {
                                 <Route path='/authenticate' exact component={Authentication}/>
                                 <Route path='/register' exact 
                                     render={(routerProps) =>{
-                                        return <Register errorMsg = {this.state.errorMessageReg} 
+                                        return <Register errorMsg={this.state.errorMessageReg} 
                                                          handleRegistration={this.handleRegistration} {...routerProps}/>
                                     }}
                                 />
                                 <Route path='/login' exact 
                                  render={(routerProps) =>{
-                                    return <Login errorMsg = {this.state.errorMessageLogin} 
+                                    return <Login errorMsg={this.state.errorMessageLogin} 
                                                      handleLogin={this.handleLogin} {...routerProps}/>
                                 }}
                                 />
-                                 <Route path='/create-profile' exact 
+                                 <Route path='/profile' exact 
                                  render={(routerProps) =>{
-                                    return <CreateProfile errorMsg = {this.state.errorMessageCreateProfile} 
+                                    return <CreateProfile errorMsg={this.state.errorMessageCreateProfile} currentUserId={this.state.currentUserId}
                                                      handleCreateProfile={this.handleCreateProfile} {...routerProps}/>
                                 }}
                                 />
@@ -160,10 +187,10 @@ class Main extends React.Component {
                                         return <AssociateList associates={this.state.associates} {...routerProps}/>
                                     }}
                                 />
-                                <Route path='/associates/:associateId'
+                                <Route path='/associates/:userId'
                                     render={(routerProps) =>{
                                         return <AssociateDetails associate=
-                                                {this.state.associates.find(associate => associate.associateId === routerProps.match.params.associateId)} {...routerProps}/>
+                                                {this.state.associates.find(associate => associate.userId === routerProps.match.params.userId)} {...routerProps}/>
                                     }}
                                 />
                                 <Route path='/buyer-checklist' exact component={BuyerChecklist}/>

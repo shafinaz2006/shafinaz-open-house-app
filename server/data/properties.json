@@ -15,7 +15,7 @@
             "http://localhost:8080/livingRooms/1.jpg"
         ],
         "seller": {
-            "sellerId": "a1cb2a39-250e-416e-9283-febc6475e730",
+            "userId": "a1cb2a39-250e-416e-9283-febc6475e730",
             "name": "Jalyn Smitham",
             "phone": "(734) 656-8642 x94640",
             "email": "Susanna.Denesik68@gmail.com",
@@ -40,7 +40,7 @@
             "http://localhost:8080/livingRooms/2.jpg"
         ],
         "seller": {
-            "sellerId": "cfb1976c-7948-4d3f-ad8e-e356c23c43cc",
+            "userId": "cfb1976c-7948-4d3f-ad8e-e356c23c43cc",
             "name": "Kitty Kuhn",
             "phone": "(618) 331-6133",
             "email": "Shannon91@yahoo.com",
@@ -64,7 +64,7 @@
             "http://localhost:8080/livingRooms/3.jpg"
         ],
         "seller": {
-            "sellerId": "b7884da8-6763-4651-a23d-2b5053c62dea",
+            "userId": "b7884da8-6763-4651-a23d-2b5053c62dea",
             "name": "Rachelle Macejkovic",
             "phone": "1-660-305-1674",
             "email": "Elvie.Gusikowski52@hotmail.com",
@@ -88,7 +88,7 @@
             "http://localhost:8080/livingRooms/4.jpg"
         ],
         "seller": {
-            "sellerId": "2e071c67-8528-4d46-97b0-07c92cc24e1b",
+            "userId": "2e071c67-8528-4d46-97b0-07c92cc24e1b",
             "name": "Jarrett Hansen",
             "phone": "1-655-766-6008 x4307",
             "email": "Rhianna.Heathcote@hotmail.com",
@@ -112,7 +112,7 @@
             "http://localhost:8080/livingRooms/5.jpg"
         ],
         "seller": {
-            "sellerId": "11ec5f66-19e8-4683-a36c-a280e9eb1dd7",
+            "userId": "11ec5f66-19e8-4683-a36c-a280e9eb1dd7",
             "name": "Tevin Gislason",
             "phone": "(258) 526-9278 x43522",
             "email": "Rasheed59@gmail.com",
@@ -136,7 +136,7 @@
             "http://localhost:8080/livingRooms/6.jpg"
         ],
         "seller": {
-            "sellerId": "06409879-419a-43af-86e5-2fc370bd03e8",
+            "userId": "06409879-419a-43af-86e5-2fc370bd03e8",
             "name": "Brandyn Spinka",
             "phone": "1-876-929-6432 x2981",
             "email": "Jodie.Yost@hotmail.com",

@@ -1,52 +1,165 @@
-import React from 'react'
-class AddProperty extends React.Component{
+import React from 'react';
+import Cookies from 'js-cookie';
+import errorIcon from '../../assets/icons/error.svg';
+import './AddProperty.scss';
+
+class AddProperty extends React.Component {
     state = {
-        selectedImage: null,
-        street: null,
+        street: '', city: '',
+        rooms: '', washrooms: '',
+        description: '', recentUpgrade: 'N/A',
+        askingPrice: '',
+        selectedImage: [],
+
+        streetError: false, cityError: false,
+        descriptionError: false, askingPriceError: false,
+
+        isValidPrice: true, isValid: true, isFormSubmitted: false,
+
     }
-    handleFormSubmit = (event) =>{
-        event.preventDefault();
-        let newData = new FormData();
-        newData.append('street', event.target.street.value);
-        for(let i = 0; i < this.state.selectedImage.length; i++){
-            newData.append('image', this.state.selectedImage[i]);
-        }
-        console.log(this.state.selectedImage);
-        this.props.handleAddProperty(newData);
-    }
-    imageInputHandler = (event) =>{
-        console.log(event.target.files);
-        this.setState({selectedImage: event.target.files});
-    }
-    render(){
+// Alert div after validation:
+
+    Alert = () =><div className='input--errorContainer'>
+                    <img src={errorIcon} alt="error" className='input--error-img' />
+                    <span className='input--error-msg'>This field is required </span>
+                </div>
+
+// Alert div (invisible)
+
+    AlertInvisible = () =>  <div className='input--errorContainer-invisible'>
+                                <img src={errorIcon} alt="error" className='input--error-img' />
+                                <span className='input--error-msg'>This field is required </span>
+                            </div>
+
+// Alert div for askingPrice:
+
+    AlertAskingPrice = () => <div className='input--errorContainer'>
+                                <img src={errorIcon} alt="error" className='input--error-img'  />
+                                <span className='input--error-msg'>Only numbers are required </span>
+                            </div>
+
+// Asking Price validation:
+
+    checkAskingPrice = () => {
+        let priceRegex = /^[0-9]*$/;
         
-        return(
-            <div>
-                <h1>Add new property</h1>
-                <form onSubmit={this.handleFormSubmit}>
-                    <label className='input-label'> Address: </label>
-                    <label className='input-label'>Street</label>
-                    <input type='text' name='street' className='input'/>
-                    <label htmlFor='city' className='input-label'>City</label>
-                    <input type='text' name='city' id='city'
-                            className={`input ${true? 'input--error': ''}`}  
-                            onChange={this.handleChange} 
-                    />
-                    <label htmlFor='rooms' className='input-label'>Number of rooms:</label>
-                    <input type='number' name='rooms' id='rooms' className='input'/>
-                    <label htmlFor='washrooms' className='input-label'>Number of washrooms:</label>
-                    <input type='number' name='washrooms' id='washrooms' className='input'/>
-                    <label htmlFor='description' className='input-label'>Description</label>
-                    <input type='text' name='description' id='description' className='input'/>
-                    <label htmlFor='recentUpgrade' className='input-label'>Recent Upgrade</label>
-                    <input type='text' name='recentUpgrade' id='recentUpgrade' className='input'/>
-                    <label htmlFor='askingPrice' className='input-label'>Asking Price:</label>
-                    <input type='text' name='askingPrice' id='askingPrice' className='input'/>
-                    <label className='input-label'>Image</label>
-                    <input type='file' name='image' multiple onChange={this.imageInputHandler}/>
-                    <input type='submit' value='Submit'/>
-                </form>
-            </div>
+        if(this.state.askingPrice.match(priceRegex)){
+            this.setState({isValidPrice: true});
+            return true;
+        }
+        else{
+            this.setState({isValidPrice: false});
+            return false;
+        }
+    }
+// Form validation:
+
+    isFormValid = () => {
+        this.checkAskingPrice();
+        if(this.state.streetError || this.state.cityError ||
+            this.state.descriptionError || this.state.askingPriceError || !this.checkAskingPrice() ) {
+                this.setState({isValid: false});
+                return false;
+        }
+        else{
+            this.setState({isValid: true});
+            return true;
+        }
+    }
+// handle onChange:
+
+    handleChange = (event) => {
+        let x = event.target.name + 'Error'
+        console.log(event.target.value)
+        if (event.target.value === '') { this.setState({ [x]: true }); }
+        else { this.setState({ [x]: false }); }
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
+// Image input handle: 
+
+    imageInputHandler = (event) => {
+        console.log(event.target.files);
+        this.setState({ selectedImage: event.target.files });
+    }
+
+// Form Submit:
+
+    handleFormSubmit = (event) => {
+        event.preventDefault();
+        if(this.isFormValid()){
+            this.setState({isFormSubmitted: true});
+            let newData = new FormData();
+            newData.append('street', this.state.street);
+            newData.append('city', this.state.city);
+            newData.append('rooms', this.state.rooms);
+            newData.append('washrooms', this.state.washrooms);
+            newData.append('description', this.state.description);
+            newData.append('recentUpgrade', this.state.recentUpgrade);
+            newData.append('askingPrice', this.state.askingPrice);
+            if(this.state.selectedImage.length){
+                for (let i = 0; i < this.state.selectedImage.length; i++) {
+                    newData.append('image', this.state.selectedImage[i]);
+                }
+            }
+            newData.append('sellerId', Cookies.get('userId'));
+            console.log('client side new property data', newData);
+            this.props.handleAddProperty(newData);
+        }
+    }
+
+    render() {
+        let cookieName = Cookies.get('username');
+        return (
+            <section className='addProperty'>
+                {!cookieName ? <h1>Login</h1> :
+                    <div>
+                        {this.state.isFormSubmitted ?
+                            <div className='createProfile__formSubmitted'>
+                                <h3 className="createProfile__subheading"> Thank you!!! Your profile is created!!</h3>
+                                <a href='/home' className="link button">Home</a>
+                            </div> : <div>
+                                <h1>Add new property</h1>
+                                <form onSubmit={this.handleFormSubmit}>
+                                    <label className='input-label'> Address: </label>
+                                    <label className='input-label'>Street</label>
+                                    <input type='text' name='street' className='input' placeholder='street' onChange={this.handleChange} />
+                                    {this.state.streetError? this.Alert(): this.AlertInvisible()}
+                                    <label htmlFor='city' className='input-label'>City</label>
+                                    <input type='text' name='city' id='city' placeholder='city'
+                                        className='input' onChange={this.handleChange} />
+                                    {this.state.cityError? this.Alert(): this.AlertInvisible() }
+                                    <div className='addProperty__roomWashroomContainer'>
+                                        <label htmlFor='rooms' className='input-label addProperty__room'>Number of rooms:
+                                            <input type='number' name='rooms' id='rooms' className='input' min='1'
+                                                placeholder='1' defaultValue='1' onChange={this.handleChange} />
+                                        </label>
+                                        <label htmlFor='washrooms' className='input-label addProperty__room'>Number of washrooms:
+                                            <input type='number' name='washrooms' id='washrooms' className='input'
+                                                    min='1' placeholder='1' defaultValue='1' onChange={this.handleChange} />
+                                        </label>
+                                    </div>
+                                    <label htmlFor='description' className='input-label'>Description</label>
+                                    <input type='text' name='description' id='description' className='input'
+                                            placeholder='description' onChange={this.handleChange} />
+                                    {this.state.descriptionError? this.Alert(): this.AlertInvisible() }
+                                    <label htmlFor='recentUpgrade' className='input-label'>Recent Upgrade</label>
+                                    <input type='text' name='recentUpgrade' id='recentUpgrade' className='input' 
+                                            placeholder='recent upgrade' onChange={this.handleChange}/>
+                                    <label htmlFor='askingPrice' className='input-label'>Asking Price:</label>
+                                    <input type='text' name='askingPrice' id='askingPrice' className='input' 
+                                            placeholder='100000' onChange={this.handleChange}/>
+                                    {this.state.askingPriceError? this.Alert(): this.AlertInvisible() }
+                                    {this.state.isValidPrice? this.AlertInvisible(): this.AlertAskingPrice()}
+                                    <label className='input-label'>Image</label>
+                                    <input type='file' name='image' multiple onChange={this.imageInputHandler} />
+                                    <input type='submit' className='button' value='Submit' />
+                                </form>
+                            </div>
+                        }
+                    </div>
+                }
+            </section>
         )
     }
 }

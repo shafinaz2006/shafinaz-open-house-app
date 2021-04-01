@@ -14,9 +14,10 @@ const getAllAssociates = () => {
 };
 
 router.get('/', (req, res) =>{
+    // console.log(req.session);
     let associatesData = getAllAssociates();
     if(associatesData) res.status(200).send(associatesData);
-    else res.status(400).send('error in associates data');
+    else res.status(400).send('associates data not found');
 })
 
 module.exports = router;

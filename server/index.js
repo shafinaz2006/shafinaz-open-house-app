@@ -3,49 +3,84 @@ const app = express();
 const port = process.env.PORT || 8080;
 const cors = require('cors');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const cookieParser = require("cookie-parser");
+
+const utils = require('./routes/util-functions');
+app.use(express.json());
+app.use(
+    cors({
+      origin: "http://localhost:3000", // <-- location of the react app were connecting to
+      credentials: true,
+    })
+  );
 
 const sessionConfig = {
-    secret: 'thisshouldbeabettersecret!',
-    resave: false,
+    secret: 'thisisasecret',
+    resave: true,
     saveUninitialized: true,
     cookie: {
-        httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
 
-app.use(session(sessionConfig))
 
+app.use(cookieParser('thisisasecret'));
+app.use(session(sessionConfig))
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser(function(user, done) {
+    console.log('in serializeuser', user)
     done(null, user);
   });
   
-  passport.deserializeUser(function(user, done) {
-    done(null, user);
-  });
-const getAllUser = () => {
-    const allUser = fs.readFileSync('./data/users.json');
-    // console.log('inside all user method', allUser);
-    const parsedData = JSON.parse(allUser);
-    // console.log('inside all user method, parsedData', parsedData);
-    return parsedData;
-};
+passport.deserializeUser(function(user, done) {
+    console.log('in deserialUser', user.userId);
+    let allUser= utils.getAllUser();
+    let currentUser = allUser.find(el => el.userId=== user.userId);
+    done(null, currentUser);
+    
+});
+
+// Routes:
+
+const authRoutes = require('./routes/authRoutes');
+const properties = require('./routes/properties');
+const associates = require('./routes/associates');
+const profile = require('./routes/profile');
+
+// Static images:
+
+app.use("/bedrooms", express.static("public/bedrooms"));
+app.use("/houses", express.static("public/houses"));
+app.use("/kitchens", express.static("public/kitchens"));
+app.use("/livingRooms", express.static("public/livingRooms"));
+
+// routes:
+
+app.use('/', authRoutes);
+app.use('/profile', profile);
+app.use('/properties', properties);
+app.use('/associates', associates);
+
+
+// register strategy:
+
 passport.use('register', new LocalStrategy(
     function(username, password, done) {
-		let allUser= getAllUser();
+		let allUser= utils.getAllUser();
         let user = allUser.find(user => user.username.toLowerCase() === username.toLowerCase());
         if (!user) {
             bcrypt
                 .hash(password, 12)
                 .then(response => {
-                    let newUser = {username: username, password: response }
+                    let newUser = {userId: uuidv4(), username: username, password: response }
                     allUser.push(newUser);
                     fs.writeFileSync("./data/users.json", JSON.stringify(allUser));
                     return done(null, newUser, { success: 'Registration complete' });
@@ -60,17 +95,25 @@ passport.use('register', new LocalStrategy(
         }
     }
 ));
-// login middleware:
+
+// login strategy:
+
 passport.use('login', new LocalStrategy(
+    
     function(username, password, done) {
-		let allUser= getAllUser();
+        console.log('req in login strategy')
+        console.log('in strategy', username, password);
+		let allUser= utils.getAllUser();
         let user = allUser.find(user => user.username === username);
         if (user) {
             bcrypt
                 .compare(password, user.password)
                 .then(response =>{
-                    // console.log('bcrypt response received', response);
-                    if(response) return done(null, {success: 'user found'});
+                    console.log('bcrypt response received', response);
+                    
+                    if(response){  
+                        return done(null, user, {success: 'user found'});
+                    }
                     else return done(null, true, {failure: 'password has not matched.'});
                 })
                 .catch(error =>{
@@ -85,23 +128,6 @@ passport.use('login', new LocalStrategy(
 ));
 
 
-const authRoutes = require('./routes/authRoutes');
-const properties = require('./routes/properties');
-const associates = require('./routes/associates');
-
-app.use(cors());
-
-app.use("/bedrooms", express.static("public/bedrooms"));
-app.use("/houses", express.static("public/houses"));
-app.use("/kitchens", express.static("public/kitchens"));
-app.use("/livingRooms", express.static("public/livingRooms"));
-
-// routes:
-
-app.use('/', authRoutes);
-app.use('/properties', properties);
-app.use('/associates', associates);
-
 // Registration Post Request: 
 
 app.post('/register', passport.authenticate('register'), (req, res) =>{
@@ -112,9 +138,22 @@ app.post('/register', passport.authenticate('register'), (req, res) =>{
 // Login Post Request:
 
 app.post('/login', passport.authenticate('login'), (req, res) =>{
-	if (req.authInfo.success)  return res.send({message: {success: req.authInfo.success, failure: ''}});
-    else return res.send({message: {success: '', failure: req.authInfo.failure}});
+    // console.log('in login', req.user);
+	if (req.authInfo.success){  
+        req.session.user = req.user;
+        return res.send({user: req.user, message: {success: req.authInfo.success, failure: ''}});}
+    else {
+        return res.send({message: {success: '', failure: req.authInfo.failure}});}
 });
+
+
+// Logout
+app.get('/logout', function(req, res){
+    // console.log(req);
+    req.logout();
+    res.redirect('/');
+  });
+
 
 // Server Listening: 
 
