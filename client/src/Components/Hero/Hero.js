@@ -26,9 +26,9 @@ const Hero =() =>{
         <header className='header__carousel'>
             <AliceCarousel 
                 autoPlay
-                autoPlayStrategy="none" autoPlayControls
-                autoPlayInterval={3000}
-                animationDuration={1000}
+                // autoPlayControls
+                autoPlayStrategy="none" 
+                autoPlayInterval={5000} animationDuration={1000}
                 animationType="fadeout"
                 infinite disableButtonsControls mouseTracking items={items} 
             />

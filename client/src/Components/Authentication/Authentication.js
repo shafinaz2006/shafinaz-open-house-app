@@ -1,13 +1,13 @@
 import React from 'react'
-// import './Authentication.scss';
+import './Authentication.scss';
 
 function Authentication(){
     return(
-        <section className='authentication'>
-            <h3 className='authentication__heading'> If you are not a member, then please register. </h3>
-            <a className='link button authentication__link' href='/register'>Register </a>
-            <h3 className='authentication__heading'> If you are a member, then please login. </h3>
-            <a className='link button authentication__link' href='/login'>Login </a>
+        <section className='authentication authentication__registerAndLogin'>
+            <h3 className='authentication__heading'> Please register if you are not a member. </h3>
+            <a className='link button button--auth' href='/register'>Register </a>
+            <h3 className='authentication__heading'> Please login if you are a member. </h3>
+            <a className='link button button--auth' href='/login'>Login </a>
         </section>
     )
 }

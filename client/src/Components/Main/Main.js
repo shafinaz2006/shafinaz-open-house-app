@@ -7,6 +7,7 @@ import LeftBar from '../LeftBar/LeftBar';
 import Authentication from '../Authentication/Authentication';
 import Register from '../Authentication/Register';
 import Login from '../Authentication/Login';
+import Logout from '../Authentication/Logout';
 import CreateProfile from '../CreateProfile/CreateProfile';
 import PropertiesList from '../PropertiesList/PropertiesList';
 import PropertyDetails from '../PropertyDetails/PropertyDetails';
@@ -36,8 +37,19 @@ class Main extends React.Component {
         axios
             .post('http://localhost:8080/register', newUser)
             .then(response =>{
-                if(response.data.message.failure)
-                this.setState({errorMessageReg: response.data.message.failure + ' Register again!!'})
+                if(response.data.message.failure){
+                    this.setState({errorMessageLogin: response.data.message.failure + ' Register again!!'})
+
+                }
+                else{
+                    console.log('response data after login', response.data);
+                    this.setState({currentUserId: response.data.user.userId,
+                                    currentUserName: response.data.user.username});
+                    let username = response.data.user.username;
+                    let userId = response.data.user.userId;
+                    this.props.handleCookie(username, userId)
+                }
+
                 
             })
             .catch(error => {
@@ -52,7 +64,6 @@ class Main extends React.Component {
         console.log('in handleLogin method', user);
         axios
             .post('http://localhost:8080/login', {username: user.username, password: user.password}, {withCredentials: true})
-            // .post('http://localhost:8080/login', user)
             .then(response =>{
                 
                 if(response.data.message.failure){
@@ -61,16 +72,13 @@ class Main extends React.Component {
                 }
                 else{
                     console.log('response data after login', response.data);
-                    this.setState({currentUserId: response.data.user.userId,
-                                    currentUserName: response.data.user.username});
+                    this.setState({currentUserId: response.data.user.userId, currentUserName: response.data.user.username});
                     let username = response.data.user.username;
                     let userId = response.data.user.userId;
                     this.props.handleCookie(username, userId)
                     
                     console.log(this.state.currentUserId)
                 }
-
-            
             })
             .catch(error => {
                 console.log('Error in User Login', error);
@@ -78,6 +86,17 @@ class Main extends React.Component {
             });
     }
 
+// handle logout: 
+
+    handleLogout = () =>{
+        axios
+            .get('http://localhost:8080/logout')
+            .then(response => {
+                // console.log(response.data);
+                this.props.handleRemoveCookie();
+            })
+            .catch(error => console.log('Error in logout', error))
+    }
 
 // Handle Create Profile:
 
@@ -158,6 +177,13 @@ class Main extends React.Component {
                                                      handleLogin={this.handleLogin} {...routerProps}/>
                                 }}
                                 />
+                                <Route path='/logout' exact 
+                                 render={(routerProps) =>{
+                                    return <Logout 
+                                                     handleLogout={this.handleLogout} {...routerProps}/>
+                                }}
+                                />
+                               
                                  <Route path='/profile' exact 
                                  render={(routerProps) =>{
                                     return <CreateProfile errorMsg={this.state.errorMessageCreateProfile} currentUserId={this.state.currentUserId}

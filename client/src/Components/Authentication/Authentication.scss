@@ -1,6 +1,16 @@
 @import '../../Styles/abstracts/variables.scss';
 @import '../../Styles/abstracts/mixins.scss';
 .authentication {
+    @include flex-column;
+    &__registerAndLogin {
+        padding-top: 2rem;
+        padding-right: 12rem;
+        align-items: center;
+    }
+    &__heading {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
     &__formSubmitted {
         height: 20rem;
         @include flex-column;

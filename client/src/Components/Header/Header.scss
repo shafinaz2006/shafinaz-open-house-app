@@ -1,4 +1,5 @@
 @import '../../Styles/abstracts/variables.scss';
+@import '../../Styles/abstracts/mixins.scss';
 .nav {
     width: 100%;
     display: flex;
@@ -8,7 +9,8 @@
     height: 5rem;
     background-color: $color-primary-bg;
     color: white;
-    // padding-bottom: 1.5rem;
+    // position: fixed;
+    // top: 0;
     &__logo-container {
         display: flex;
         flex-direction: row;
@@ -33,6 +35,13 @@
     &__link {
         color: white;
         padding-top: 0.8rem;
+        font-size: 1.2rem;
+        padding-left: 2rem;
+    }
+    &__loggedInDiv {
+        @include flex-row;
+        width: 30%;
+        justify-content: flex-end;
         padding-right: 6.25rem;
     }
 }
