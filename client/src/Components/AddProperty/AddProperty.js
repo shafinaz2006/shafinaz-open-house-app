@@ -6,8 +6,8 @@ import './AddProperty.scss';
 class AddProperty extends React.Component {
     state = {
         street: '', city: '',
-        rooms: '', washrooms: '',
-        description: '', recentUpgrade: 'N/A',
+        rooms: 1, washrooms: 1,
+        description: '', recentUpgrade: 'Not Available',
         askingPrice: '',
         selectedImage: [],
 
@@ -88,6 +88,7 @@ class AddProperty extends React.Component {
     handleFormSubmit = (event) => {
         event.preventDefault();
         if(this.isFormValid()){
+            console.log(this.state.recentUpgrade);
             this.setState({isFormSubmitted: true});
             let newData = new FormData();
             newData.append('street', this.state.street);
@@ -116,7 +117,7 @@ class AddProperty extends React.Component {
                     <div>
                         {this.state.isFormSubmitted ?
                             <div className='createProfile__formSubmitted'>
-                                <h3 className="createProfile__subheading"> Thank you!!! Your profile is created!!</h3>
+                                <h3 className="createProfile__subheading"> Thank you!!! Your property is added!!</h3>
                                 <a href='/home' className="link button">Home</a>
                             </div> : <div>
                                 <h1>Add new property</h1>
@@ -132,11 +133,11 @@ class AddProperty extends React.Component {
                                     <div className='addProperty__roomWashroomContainer'>
                                         <label htmlFor='rooms' className='input-label addProperty__room'>Number of rooms:
                                             <input type='number' name='rooms' id='rooms' className='input' min='1'
-                                                placeholder='1' defaultValue='1' onChange={this.handleChange} />
+                                                placeholder='1'  onChange={this.handleChange} />
                                         </label>
                                         <label htmlFor='washrooms' className='input-label addProperty__room'>Number of washrooms:
                                             <input type='number' name='washrooms' id='washrooms' className='input'
-                                                    min='1' placeholder='1' defaultValue='1' onChange={this.handleChange} />
+                                                    min='1' placeholder='1'  onChange={this.handleChange} />
                                         </label>
                                     </div>
                                     <label htmlFor='description' className='input-label'>Description</label>

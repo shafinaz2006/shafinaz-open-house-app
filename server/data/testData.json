@@ -1,1 +1,19 @@
-{"street":"ww","image":["http://localhost:8080/public/myImages/IMG_6472.JPG","http://localhost:8080/public/myImages/IMG_6472_2.jpg","http://localhost:8080/public/myImages/IMG_6473.JPG"]}
+{
+    "propertyId": "6108a94e-e48b-4135-8f95-a45f4c88bd1e",
+    "address": {
+        "street": "2414-2370 Pacific Way",
+        "city": "Kamloops"
+    },
+    "rooms": 2,
+    "washrooms": 3,
+    "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+    "recentUpgrade": "Not Available",
+    "image": [
+        "http://localhost:8080/public/myImages/21.jpg",
+        "http://localhost:8080/public/myImages/22.jpg",
+        "http://localhost:8080/public/myImages/23.jpg"
+    ],
+    "seller": {
+        "userId": "90472634-ae04-49fc-8cd7-3171de049d62"
+    }
+}

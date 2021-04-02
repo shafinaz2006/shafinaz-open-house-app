@@ -122,11 +122,9 @@ class Main extends React.Component {
             .post('http://localhost:8080/properties', newData)
             .then(response =>{
                 console.log(response.data);
-
             })
             .catch(error => console.log('Error in add new property', error));
     }
-
 
 
 // CompoundDidMount():

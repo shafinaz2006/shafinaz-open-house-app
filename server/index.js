@@ -61,6 +61,7 @@ app.use("/bedrooms", express.static("public/bedrooms"));
 app.use("/houses", express.static("public/houses"));
 app.use("/kitchens", express.static("public/kitchens"));
 app.use("/livingRooms", express.static("public/livingRooms"));
+app.use("/myImages", express.static("public/myImages"));
 
 // routes:
 

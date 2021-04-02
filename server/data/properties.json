@@ -1,4 +1,42 @@
 [{
+        "propertyId": "89083e8f-f94f-4477-b4af-5364acb5c500",
+        "address": {
+            "street": "rr",
+            "city": "ee"
+        },
+        "rooms": 1,
+        "washrooms": 1,
+        "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "50,000,002",
+        "images": [
+            "http://localhost:8080/myImages/house-icon.svg"
+        ],
+        "seller": {
+            "userId": "90472634-ae04-49fc-8cd7-3171de049d62"
+        }
+    },
+    {
+        "propertyId": "131184ce-983d-4baa-8547-6b78c8d3b6e3",
+        "address": {
+            "street": "2414-2370 Pacific Way",
+            "city": "Kamloops"
+        },
+        "rooms": 3,
+        "washrooms": 5,
+        "description": "This USB-C phone charger features fast charging for the latest devices",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "5,000,000",
+        "images": [
+            "http://localhost:8080/myImages/21.jpg",
+            "http://localhost:8080/myImages/25.jpg",
+            "http://localhost:8080/myImages/26.jpg"
+        ],
+        "seller": {
+            "userId": "90472634-ae04-49fc-8cd7-3171de049d62"
+        }
+    },
+    {
         "propertyId": "c6937119-5eb1-417b-8f45-94f30f1e7242",
         "address": {
             "street": "234 Pacific Way",
@@ -9,7 +47,8 @@
         "description": "Consequuntur minima et omnis aut. Fugit quia et odio sapiente eum et ex. At neque dolorem. Ut animi a aperiam similique voluptates est.",
         "recentUpgrade": "Qui omnis a provident aut quidem. Quos et et. Ipsum quod nesciunt laudantium aut molestiae repellendus natus nisi.",
         "askingPrice": "250,000",
-        "images": ["http://localhost:8080/bedrooms/1.jpg",
+        "images": [
+            "http://localhost:8080/bedrooms/1.jpg",
             "http://localhost:8080/houses/1.jpg",
             "http://localhost:8080/kitchens/1.jpg",
             "http://localhost:8080/livingRooms/1.jpg"
@@ -21,7 +60,6 @@
             "email": "Susanna.Denesik68@gmail.com",
             "type": "seller"
         }
-
     },
     {
         "propertyId": "3a6dbda2-cf1c-45ad-8554-4c0e3bafca0f",
@@ -34,7 +72,8 @@
         "description": "Perspiciatis quia sed in laboriosam hic ea occaecati dolor ipsum. Enim adipisci labore veritatis voluptas temporibus atque. Sed modi dolorem voluptates ut ratione corporis enim ex alias.",
         "recentUpgrade": "Sint molestiae nulla est dolores rerum ut. Voluptatem ullam atque ut. Quis in itaque rem voluptates nam aut ipsam. Quibusdam doloremque libero vel tenetur sed possimus ut nisi ut.",
         "askingPrice": "250,000",
-        "images": ["http://localhost:8080/bedrooms/2.jpg",
+        "images": [
+            "http://localhost:8080/bedrooms/2.jpg",
             "http://localhost:8080/houses/2.jpg",
             "http://localhost:8080/kitchens/2.jpg",
             "http://localhost:8080/livingRooms/2.jpg"
@@ -58,7 +97,8 @@
         "description": "Exercitationem et eum quos ipsum quae quos nulla dolorem. Rerum asperiores corrupti. Error laboriosam similique ab similique.",
         "recentUpgrade": "Fugit sit cum autem omnis aut nihil facilis cumque. Modi earum asperiores nobis est.",
         "askingPrice": "250,000",
-        "images": ["http://localhost:8080/bedrooms/3.jpg",
+        "images": [
+            "http://localhost:8080/bedrooms/3.jpg",
             "http://localhost:8080/houses/3.jpg",
             "http://localhost:8080/kitchens/3.jpg",
             "http://localhost:8080/livingRooms/3.jpg"
@@ -82,7 +122,8 @@
         "description": "Quis recusandae dolorum magni. Nesciunt eos voluptates. Dolor suscipit ut excepturi dolores expedita et animi.",
         "recentUpgrade": "Quo id reiciendis eum molestiae nam. Soluta placeat inventore.",
         "askingPrice": "250,000",
-        "images": ["http://localhost:8080/bedrooms/4.jpg",
+        "images": [
+            "http://localhost:8080/bedrooms/4.jpg",
             "http://localhost:8080/houses/4.jpg",
             "http://localhost:8080/kitchens/4.jpg",
             "http://localhost:8080/livingRooms/4.jpg"
@@ -106,7 +147,8 @@
         "description": "Totam debitis maiores et magni quidem consequatur id aut placeat. Nihil esse repellendus nobis est cupiditate sed. Quia facere voluptatem ex velit. Voluptatum quia doloremque tempora deleniti laboriosam possimus et. Dolores aut ex voluptas aliquid distinctio eveniet.",
         "recentUpgrade": "Omnis autem qui dolor quam quibusdam. Neque blanditiis officiis corrupti culpa fuga est vel dignissimos esse. Voluptatibus facere expedita doloremque consequatur. Voluptatibus odio mollitia hic itaque. Voluptates soluta odio neque cumque quia.",
         "askingPrice": "250,000",
-        "images": ["http://localhost:8080/bedrooms/5.jpg",
+        "images": [
+            "http://localhost:8080/bedrooms/5.jpg",
             "http://localhost:8080/houses/5.jpg",
             "http://localhost:8080/kitchens/5.jpg",
             "http://localhost:8080/livingRooms/5.jpg"
@@ -130,7 +172,8 @@
         "description": "Consequatur consequatur natus quia culpa reprehenderit minus. Et autem repellendus recusandae eum expedita vel aut nemo et. Quia iste veniam est at. Deleniti voluptatum magni explicabo in delectus ut. Facilis quidem iste consequuntur vitae omnis et praesentium eveniet omnis.",
         "recentUpgrade": "Aperiam dolore vel ut qui voluptas. Totam quos id. Quia perferendis assumenda consectetur facilis. Molestiae eum rerum sed suscipit autem ad.",
         "askingPrice": "250,000",
-        "images": ["http://localhost:8080/bedrooms/6.jpg",
+        "images": [
+            "http://localhost:8080/bedrooms/6.jpg",
             "http://localhost:8080/houses/6.jpg",
             "http://localhost:8080/kitchens/6.jpg",
             "http://localhost:8080/livingRooms/6.jpg"
