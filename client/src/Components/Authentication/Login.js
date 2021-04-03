@@ -72,7 +72,7 @@ class Login extends React.Component {
                         <a href='/login' className="link button button--big">Login Again!</a>
                     </div> : ''
                 }
-                {typeof Cookies.get('username') !== 'undefined' && (!this.props.errorMsg && this.state.isFormSubmitted)?
+                {typeof Cookies.get('username') !== 'undefined' && !this.props.errorMsg && this.state.isFormSubmitted?
                     <div className='authentication__section authentication__formSubmitted'>
                         <h3 className="authentication__heading authentication__heading--status"> {`You are now logged in as ${Cookies.get('username')}`}</h3>
                         <a href='/home' className="link button button--auth">Home</a>
@@ -97,12 +97,7 @@ class Login extends React.Component {
                         </form>
                     </div> : ''
                 }
-                {typeof Cookies.get('username') === 'string' ?
-                    <div className='authentication__section authentication__formSubmitted'>
-                        <h3 className="authentication__heading authentication__heading--status"> {`You are now logged in as ${Cookies.get('username')}`}</h3>
-                        <a href='/home' className="link button button--auth">Home</a>
-                    </div> : ''
-                }
+                
             </section>
         )
     }

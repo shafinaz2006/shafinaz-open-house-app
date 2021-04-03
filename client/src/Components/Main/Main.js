@@ -80,17 +80,17 @@ class Main extends React.Component {
             });
     }
 
-// handle logout: 
+// // handle logout: 
 
-    handleLogout = () =>{
-        axios
-            .get('http://localhost:8080/logout')
-            .then(response => {
-                // console.log(response.data);
-                this.props.handleRemoveCookie();
-            })
-            .catch(error => console.log('Error in logout', error))
-    }
+//     handleLogout = () =>{
+//         axios
+//             .get('http://localhost:8080/logout')
+//             .then(response => {
+//                 // console.log(response.data);
+//                 this.props.handleRemoveCookie();
+//             })
+//             .catch(error => console.log('Error in logout', error))
+//     }
 
 // Handle Create Profile:
 

@@ -12,8 +12,8 @@ import Footer from './Components/Footer/Footer';
 
 class App extends React.Component {
     state = {
-        sessionUser:'',
-        sessionUserId: '',
+        sessionUser:Cookies.get('username'),
+        sessionUserId: Cookies.get('userId'),
     }
 
 // setting Cookie username and userId after Login/Register:
@@ -27,11 +27,11 @@ class App extends React.Component {
 
 // setting Cookie username and userId after Logout:
 
-    removeCookie = () =>{
-        Cookies.remove('username');
-        Cookies.remove('userId');
-        this.setState({sessionUser: '', sessionUserId: ''});
-    }
+    // removeCookie = () =>{
+    //     Cookies.remove('username');
+    //     Cookies.remove('userId');
+    //     this.setState({sessionUser: '', sessionUserId: ''});
+    // }
     render() {
         return (
             <div className="App">
