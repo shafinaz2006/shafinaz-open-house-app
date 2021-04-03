@@ -15,6 +15,7 @@ passport.use('register', new LocalStrategy(
     function (username, password, done) {
         let allUser = utils.getAllUser();
         let user = allUser.find(user => user.username.toLowerCase() === username.toLowerCase());
+        console.log(user);
         if (!user) {
             bcrypt
                 .hash(password, 12)
@@ -31,7 +32,7 @@ passport.use('register', new LocalStrategy(
                 });
         } else {
             console.log('the username already exits');
-            return done(null, true, { failure: 'the Username already exists. Please choose another one' });
+            return done(null, true, { failure: 'The Username already exists.' });
         }
     }
 ));
@@ -39,7 +40,6 @@ passport.use('register', new LocalStrategy(
 // login strategy:
 
 passport.use('login', new LocalStrategy(
-
     function (username, password, done) {
         console.log('req in login strategy')
         console.log('in strategy', username, password);
@@ -50,11 +50,12 @@ passport.use('login', new LocalStrategy(
                 .compare(password, user.password)
                 .then(response => {
                     console.log('bcrypt response received', response);
-
-                    if (response) {
-                        return done(null, user, { success: 'user found' });
+                    
+                    if (!response) {
+                        return done(null, true, { failure: 'Password has not matched.' });
+                        
                     }
-                    else return done(null, true, { failure: 'password has not matched.' });
+                    else return done(null, user, { success: 'User found' });
                 })
                 .catch(error => {
                     // console.log('bcrypt error', error);
@@ -62,7 +63,7 @@ passport.use('login', new LocalStrategy(
                 })
         } else {
             // console.log('error');
-            return done(null, true, { failure: 'username is invalid' });
+            return done(null, true, { failure: 'Username is invalid' });
         }
     }
 ));
@@ -71,10 +72,10 @@ passport.use('login', new LocalStrategy(
 // Registration Post Request: 
 
 router.post('/register', passport.authenticate('register'), (req, res) => {
-    console.log('in register', req.user);
+    // console.log('in register', req.user);
     if (req.authInfo.success) {
         req.session.user = req.user;
-        return res.send({ user: req.user, message: { success: req.authInfo.success, failure: '' } });
+        return res.send({ user: req.user, message: { success: req.authInfo.success, failure: req.authInfo.failure } });
     }
     else return res.send({ message: { success: '', failure: req.authInfo.failure } });
 });
@@ -85,10 +86,10 @@ router.post('/login', passport.authenticate('login'), (req, res) => {
     // console.log('in login', req.user);
     if (req.authInfo.success) {
         req.session.user = req.user;
-        return res.send({ user: req.user, message: { success: req.authInfo.success, failure: '' } });
+        return res.send({ user: req.user, message: { failure: req.authInfo.failure, success: req.authInfo.success } });
     }
     else {
-        return res.send({ message: { success: '', failure: req.authInfo.failure } });
+        return res.send({ message: { failure: req.authInfo.failure, success: req.authInfo.success  } });
     }
 });
 

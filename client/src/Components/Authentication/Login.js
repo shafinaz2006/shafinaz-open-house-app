@@ -8,8 +8,8 @@ class Login extends React.Component {
         username: '',
         password: '',
 
-        usernameError: true,
-        passwordError: true,
+        usernameError: false,
+        passwordError: false,
         isValid: true,
         isFormSubmitted: false,
         displayName: '',
@@ -32,17 +32,17 @@ class Login extends React.Component {
         <span className='input--error-msg'>This field is required </span>
     </div>
 
-    // Alert div (invisible)
+// Alert div (invisible)
 
-    AlertInvisible = () => <div className='input--errorContainer-invisible'>
-        <img src={errorIcon} alt="error" className='input--error-img' />
-        <span className='input--error-msg'>This field is required </span>
-    </div>
+    // AlertInvisible = () => <div className='input--errorContainer-invisible'>
+    //     <img src={errorIcon} alt="error" className='input--error-img' />
+    //     <span className='input--error-msg'>This field is required </span>
+    // </div>
 
     // Form validation:
 
     isFormValid = () => {
-        if (this.state.usernameError || this.state.passwordError) {
+        if (!this.state.username|| !this.state.password || this.state.usernameError || this.state.passwordError) {
             this.setState({ isValid: false });
             return false;
         }
@@ -59,46 +59,50 @@ class Login extends React.Component {
         if (this.isFormValid()) {
             this.setState({ isFormSubmitted: true, displayName: this.state.username });
             this.props.handleLogin(user);
+            this.setState({ username: '', password: '' });
         }
-        this.setState({ username: '', password: '' });
     }
 
     render() {
         return (
-            <section className='authentication authentication__login'>
+            <section className='authentication'>
                 {this.props.errorMsg ?
-                    <div className='authentication__errorFromServer'>
-                        <h3 className="authentication__subheading"> {this.props.errorMsg}</h3>
-                        <a href='/login' className="link button">Login Again!</a>
+                    <div className='authentication__section authentication__errorFromServer'>
+                        <h3 className="authentication__heading authentication__heading--status"> {this.props.errorMsg}</h3>
+                        <a href='/login' className="link button button--big">Login Again!</a>
                     </div> : ''
                 }
-                {(!this.props.errorMsg && this.state.isFormSubmitted)|| Cookies.get('username')?
-                    <div className='authentication__formSubmitted'>
-                        <h3 className="authentication__subheading"> {`You are now logged in as ${Cookies.get('username')}`}</h3>
-                        <a href='/home' className="link button">Home</a>
+                {typeof Cookies.get('username') !== 'undefined' && (!this.props.errorMsg && this.state.isFormSubmitted)?
+                    <div className='authentication__section authentication__formSubmitted'>
+                        <h3 className="authentication__heading authentication__heading--status"> {`You are now logged in as ${Cookies.get('username')}`}</h3>
+                        <a href='/home' className="link button button--auth">Home</a>
                     </div> : ''
                 }
                 {!this.state.isFormSubmitted && !this.props.errorMsg && !Cookies.get('username') ?
-                    <div>
+                    <div className='authentication__section'>
                         <h3 className='authentication__heading'> Complete the form to login. </h3>
                         <form className='authentication__reg-form'
                             onSubmit={(event) => { this.handleSubmit(event) }}>
-                            <label className='input-label' htmlFor='username'>Username:</label>
+                            <label className='input-label' htmlFor='username'>Username:
                             <input className={`input input--register ${this.state.nameError ? 'input--error' : ''}`} type='text'
                                 placeholder='username' id='username' name='username' onChange={this.handleChange} />
-                            {this.state.usernameError ? this.Alert() : this.AlertInvisible()}
-                            <label className='input-label' htmlFor='password'>Password:</label>
+                            {this.state.usernameError ? this.Alert() : ''}
+                            </label>
+                            <label className='input-label' htmlFor='password'>Password:
                             <input className={`input input--register ${this.state.nameError ? 'input--error' : ''}`} type='password' placeholder='password'
                                 name='password' id='password' onChange={this.handleChange} autoComplete='off' />
-                            {this.state.passwordError ? this.Alert() : this.AlertInvisible()}
+                            {this.state.passwordError ? this.Alert() : ''}
+                            </label>
                             <input className='button button--register' type='submit' value='Login' />
                         </form>
                     </div> : ''
                 }
-                {/* {Cookies.get('username') ? <div className='authentication__formSubmitted'>
-                    <h3 className="authentication__subheading"> {`You are now logged in as ${Cookies.get('username')}`}</h3>
-                    <a href='/home' className="link button">Home</a>
-                </div> : ''} */}
+                {typeof Cookies.get('username') === 'string' ?
+                    <div className='authentication__section authentication__formSubmitted'>
+                        <h3 className="authentication__heading authentication__heading--status"> {`You are now logged in as ${Cookies.get('username')}`}</h3>
+                        <a href='/home' className="link button button--auth">Home</a>
+                    </div> : ''
+                }
             </section>
         )
     }

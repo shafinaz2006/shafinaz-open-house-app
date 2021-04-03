@@ -38,8 +38,7 @@ class Main extends React.Component {
             .post('http://localhost:8080/register', newUser)
             .then(response =>{
                 if(response.data.message.failure){
-                    this.setState({errorMessageLogin: response.data.message.failure + ' Register again!!'})
-
+                    this.setState({errorMessageReg: response.data.message.failure})
                 }
                 else{
                     console.log('response data after login', response.data);
@@ -49,12 +48,10 @@ class Main extends React.Component {
                     let userId = response.data.user.userId;
                     this.props.handleCookie(username, userId)
                 }
-
-                
             })
             .catch(error => {
                 console.log('Error in User Registration', error);
-                this.setState({errorMessageReg:'Registration is not completed. Register again!!'})
+                this.setState({errorMessageReg:'Registration is not completed.!!'})
             });
     }
 
@@ -65,10 +62,8 @@ class Main extends React.Component {
         axios
             .post('http://localhost:8080/login', {username: user.username, password: user.password}, {withCredentials: true})
             .then(response =>{
-                
                 if(response.data.message.failure){
-                    this.setState({errorMessageLogin: response.data.message.failure + ' Login again!!'})
-
+                    this.setState({errorMessageLogin: response.data.message.failure})
                 }
                 else{
                     console.log('response data after login', response.data);
@@ -76,13 +71,12 @@ class Main extends React.Component {
                     let username = response.data.user.username;
                     let userId = response.data.user.userId;
                     this.props.handleCookie(username, userId)
-                    
-                    console.log(this.state.currentUserId)
+                    // console.log(this.state.currentUserId)
                 }
             })
             .catch(error => {
-                console.log('Error in User Login', error);
-                this.setState({errorMessageLogin:'Not logged in. Login again!!'})
+                // console.log('Error in User Login', error);
+                this.setState({errorMessageLogin:'Login again!!'})
             });
     }
 

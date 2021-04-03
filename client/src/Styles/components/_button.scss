@@ -17,11 +17,11 @@
     }
     &:focus {
         outline: none;
-        color: $color-primary-text;
+        color: $white;
     }
     &:active {
         color: white;
-        background-color: $color-primary-text;
+        background-color: $white;
     }
     &--propList {
         width: 40%;
@@ -31,9 +31,15 @@
         width: 100%;
     }
     &--register {
+        margin-top: 1rem;
         width: 8rem;
+        align-self: flex-end;
     }
     &--auth {
         width: 8vw;
+        margin-bottom: 1rem;
+    }
+    &--big {
+        width: 12vw;
     }
 }

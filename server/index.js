@@ -39,7 +39,8 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
     let allUser= utils.getAllUser();
     let currentUser = allUser.find(el => el.userId=== user.userId);
-    done(null, currentUser);
+    if(!currentUser) return done(null, false);
+    else return done(null, currentUser);
     
 });
 

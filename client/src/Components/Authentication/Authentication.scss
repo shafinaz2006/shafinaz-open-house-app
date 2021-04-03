@@ -2,14 +2,27 @@
 @import '../../Styles/abstracts/mixins.scss';
 .authentication {
     @include flex-column;
+    width: 65%;
+    padding-left: 4rem;
+    align-items: flex-start;
+    justify-content: flex-start;
     &__registerAndLogin {
         padding-top: 2rem;
         padding-right: 12rem;
-        align-items: center;
     }
     &__heading {
         padding-bottom: 1rem;
         padding-top: 1rem;
+        @include h2-sub-header;
+        &--status {
+            padding-bottom: 2.5rem;
+        }
+    }
+    &__section {
+        width: 80%;
+    }
+    &__reg-form {
+        width: 100%;
     }
     &__formSubmitted {
         height: 20rem;

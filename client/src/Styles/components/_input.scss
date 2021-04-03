@@ -5,6 +5,7 @@
     height: 3rem;
     margin-bottom: 0.5rem;
     padding-left: 1rem;
+    box-sizing: border-box;
     border: 1px solid $color-input-label;
     background-color: $color-input-bg;
     &::placeholder {
@@ -25,7 +26,7 @@
         padding-bottom: 0.5rem;
     }
     &--register {
-        width: 60%;
+        width: 100%;
     }
     &--error {
         border: 1px solid red;
