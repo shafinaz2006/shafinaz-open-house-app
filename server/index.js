@@ -50,6 +50,7 @@ const authRoutes = require('./routes/authRoutes');
 const properties = require('./routes/properties');
 const associates = require('./routes/associates');
 const profile = require('./routes/profile');
+const users = require('./routes/UserRoutes');
 
 // Static images:
 
@@ -65,6 +66,7 @@ app.use('/', authRoutes);
 app.use('/profile', profile);
 app.use('/properties', properties);
 app.use('/associates', associates);
+app.use('/users', users);
 
 
 // Server Listening: 

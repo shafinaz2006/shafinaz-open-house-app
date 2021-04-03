@@ -26,6 +26,7 @@ class Main extends React.Component {
     state = {
         properties: '',
         associates: '',
+        userProperties: '',
         errorMessageReg:'',
         errorMessageLogin: '',
         errorMessageCreateProfile: '',
@@ -108,6 +109,19 @@ class Main extends React.Component {
             .catch(error => console.log('Error in properties data', error))
     }
 
+// Get user properties data:
+    getUserPropertiesData = () =>{
+        axios
+            .get(`http://localhost:8080/users/${Cookies.get('userId')}/properties`, { withCredentials: true })
+            .then(response => {
+                // console.log(response.data);
+                this.setState({userProperties: response.data});
+            })
+            .catch(error => console.log('Error in properties data', error))
+    }
+
+
+
 // Get all associates data:
 
     getAssociatesData = () =>{
@@ -140,6 +154,7 @@ class Main extends React.Component {
     componentDidMount() {
         this.getPropertiesData();
         this.getAssociatesData();
+        this.getUserPropertiesData();
     }
     
     render(){
@@ -184,14 +199,14 @@ class Main extends React.Component {
                                 />
                                 <Route path='/users/:userId/properties' exact 
                                         render={(routerProps) =>{
-                                            return <UserPropertiesList properties={this.state.properties}
+                                            return <UserPropertiesList properties={this.state.userProperties}
                                              {...routerProps}/>
                                         }}
                                 />
                                 <Route path='/users/:userId/properties/:propertyId' exact 
                                         render={(routerProps) =>{
                                             return <UserPropertyDetails property=
-                                                {this.state.properties.find(property => 
+                                                {this.state.userProperties.find(property => 
                                                     property.propertyId === routerProps.match.params.propertyId 
                                                     )} {...routerProps}/>
                                         }}

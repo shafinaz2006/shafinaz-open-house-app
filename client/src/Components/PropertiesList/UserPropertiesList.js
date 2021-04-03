@@ -4,28 +4,17 @@ import UserProperty from './UserProperty';
 
 
 const UserPropertiesList = (props) =>{
-    console.log(props.match.params.userId);
-    console.log(props.properties);
-    console.log(props.properties[0].seller.userId);
-    let propertyList = [];
-    let allProperties = [...props.properties];
-    propertyList = allProperties.filter(property => {
-        return property.seller.userId === props.match.params.userId
-    })
     
-    if(propertyList){
-        console.log(propertyList)
-    }else {
-        console.log('propertyList not found');
-    }
+    console.log(props.properties);
+   
+    let userProperties = [...props.properties];
+    
     return(
         <section className='properties'>
             <h1 className='properties__heading'> List of your properties </h1>
-            {propertyList.length>0?
-            
+            {userProperties.length>0?
             <div className='properties__container'>
-            
-                {propertyList.map(property =>{
+                {userProperties.map(property =>{
                     return <UserProperty key = {property.propertyId} 
                                 property = {property}/>
                 }) }
