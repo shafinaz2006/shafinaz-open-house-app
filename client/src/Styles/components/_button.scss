@@ -42,4 +42,13 @@
     &--big {
         width: 12vw;
     }
+    &--propertyDetails {
+        width: 14vw;
+        align-self: center;
+    }
+    &--userPropertyDetails {
+        width: 20vw;
+        margin-bottom: 1rem;
+        // align-self: center;
+    }
 }

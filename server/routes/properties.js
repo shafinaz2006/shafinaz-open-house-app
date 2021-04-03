@@ -24,19 +24,27 @@ router.get('/', (req, res) =>{
 
 router.post('/', (req, res) =>{
     let imageCollection = [];
+    console.log(req.files)
     if(req.files){
         let pic = req.files.image;
         let reqPath = path.join(__dirname, '../', 'public/myImages/');
-        
-        for(let i = 0; i < pic.length; i++){
-            pic[i].mv(reqPath + pic[i].name);
-            imageCollection.push(`http://localhost:8080/myImages/${pic[i].name}`);  
+        console.log('pic', pic.length);
+        if(pic.length){
+            for(let i = 0; i < pic.length; i++){
+                console.log('inside image for loop')
+                pic[i].mv(reqPath + pic[i].name);
+                imageCollection.push(`http://localhost:8080/myImages/${pic[i].name}`);  
+            }
+        } else {
+            pic.mv(reqPath + pic.name);
+            imageCollection.push(`http://localhost:8080/myImages/${pic.name}`);  
         }
-        console.log(imageCollection);
+        
+        
     }else {
         imageCollection.push('http://localhost:8080/myImages/house-icon.svg');
     }
-    
+    console.log(imageCollection);
     let newProperty={
         propertyId: uuidv4(),
         address:{
@@ -50,10 +58,17 @@ router.post('/', (req, res) =>{
         askingPrice: req.body.askingPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
         images: imageCollection
     }
+    console.log('userid in post property, ', req.body.sellerId);
     let allSellers = utils.getAllSellers();
-    let sellerInfo = allSellers.find(seller => seller.userId === req.body.sellerId);
-    if(!sellerInfo){   newProperty.seller ={userId: req.body.sellerId}}
-    else { newProperty.seller = {...sellerInfo}; }
+    let sellerInfo = allSellers.find(user => user.userId === req.body.sellerId);
+    if(sellerInfo){   newProperty.seller = {name: sellerInfo.name, phone: sellerInfo.phone, email: sellerInfo.email}}
+    else {
+        let allUsers = utils.getAllUser();
+        let userInfo = allUsers.find(user => user.userId === req.body.sellerId);
+        console.log(userInfo.username);
+        if(!userInfo){   newProperty.user ={userId: req.body.sellerId}}
+        else { newProperty.seller = {userId: req.body.sellerId, name: userInfo.username}}
+    }
     console.log('newData before adding to file', newProperty) 
     let propertiesData = utils.getAllProperties();
     propertiesData.unshift(newProperty);

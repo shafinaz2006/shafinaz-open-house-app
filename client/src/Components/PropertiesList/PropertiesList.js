@@ -2,7 +2,7 @@ import React from 'react';
 import './PropertiesList.scss';
 import Property from './Property';
 
-const Properties = ({properties}) =>{
+const PropertiesList = ({properties}) =>{
 
     return(
         <section className='properties'>
@@ -18,4 +18,4 @@ const Properties = ({properties}) =>{
         </section>
     )
 }
-export default Properties;
+export default PropertiesList;

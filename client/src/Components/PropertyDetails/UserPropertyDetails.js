@@ -4,8 +4,9 @@ import './PropertyDetails.scss';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
-const PropertyDetails = ({property}) =>{
-    console.log('in details' ,property);
+const UserPropertyDetails = (props) =>{
+    console.log('in details' ,props.property);
+    let property = props.property;
     let items = [];
     if(property.images.length>0){
         let imageList= [...property.images];
@@ -30,18 +31,15 @@ const PropertyDetails = ({property}) =>{
                 <p className='propertyDetails__des'>{property.description}</p>
                 <h3 className='propertyDetails__desc'>Recent Upgradation: </h3>
                 <p className='propertyDetails__des'>{property.recentUpgrade}</p>
-                <h3 className='propertyDetails__sellerInfo'>Seller Information: </h3>
-                {property.seller.userId? 
-                <div>
-                    <p className='propertyDetails__sellerName'>{property.seller.name? property.seller.name: 'Not available'}</p>
-                    <p className='propertyDetials__sellerPhone'>{property.seller.phone? property.seller.phone: 'Not available'}</p>
-                    <p className='propertyDetials__sellerEmail'>{property.seller.email? property.seller.email: 'Not available'}</p>
-                </div>:
-                <p className='propertyDetails__sellerName'>Seller's contact information is not available.</p>
-                }
-                {property.seller.name?<a className='link button button--propertyDetails' href='/home'>Connect with seller </a>: '' }
+                
+                {property.seller.name?
+                <div className='propertyDetails__userButtons'>
+                <a className='link button button--userPropertyDetails' href='/home'>Edit Property Information </a>
+                <a className='link button button--userPropertyDetails' href='/home'>Delete Property </a>
+                </div>
+                : '' }
             </div>
         </section>
     )
 }
-export default PropertyDetails;
+export default UserPropertyDetails;

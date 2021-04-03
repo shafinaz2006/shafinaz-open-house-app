@@ -1,4 +1,149 @@
 [{
+        "propertyId": "1b83665b-66eb-4290-a3f7-e787d84da260",
+        "address": {
+            "street": "2414-2370 Pacific Way",
+            "city": "Kamloops"
+        },
+        "rooms": 1,
+        "washrooms": 1,
+        "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "5,000,000",
+        "images": [
+            "http://localhost:8080/myImages/IMG_6046.jpg"
+        ],
+        "seller": {
+            "userId": "d0e30db9-c2c1-4ea7-a926-48c440ce8e09",
+            "name": "shafi"
+        }
+    },
+    {
+        "propertyId": "4993334c-5d24-4b32-9525-48c8176c44be",
+        "address": {
+            "street": "2414-2370 Pacific Way",
+            "city": "Kamloops"
+        },
+        "rooms": 1,
+        "washrooms": 1,
+        "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "5,000,000",
+        "images": [
+            "http://localhost:8080/myImages/IMG_6046.jpg",
+            "http://localhost:8080/myImages/IMG_6051.jpg"
+        ],
+        "seller": {
+            "userId": "d0e30db9-c2c1-4ea7-a926-48c440ce8e09",
+            "name": "shafi"
+        }
+    },
+
+
+
+
+    {
+        "propertyId": "87d101c1-4eec-40f8-9e3c-19e1c7acf6cb",
+        "address": {
+            "street": "2414-2370 Pacific Way",
+            "city": "Kamloops"
+        },
+        "rooms": 5,
+        "washrooms": 7,
+        "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "",
+        "images": [
+            "http://localhost:8080/myImages/house-icon.svg"
+        ],
+        "seller": {
+            "userId": "d0e30db9-c2c1-4ea7-a926-48c440ce8e09",
+            "name": "shafi"
+        }
+    },
+
+
+
+
+    {
+        "propertyId": "8ba39d51-be45-40d0-8632-dd19c38c0abe",
+        "address": {
+            "street": "2414- Way",
+            "city": "Kamloops"
+        },
+        "rooms": 1,
+        "washrooms": 1,
+        "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "100,000",
+        "images": [
+            "http://localhost:8080/myImages/house-icon.svg"
+        ],
+        "seller": {
+            "userId": "d0e30db9-c2c1-4ea7-a926-48c440ce8e09",
+            "username": "shafi"
+        }
+    },
+
+
+
+    {
+        "propertyId": "69e634b8-3f49-4a74-b527-ee211f282e6d",
+        "address": {
+            "street": "2414-2370 Markham Road",
+            "city": "Kamloops"
+        },
+        "rooms": 4,
+        "washrooms": 3,
+        "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+        "recentUpgrade": "ee",
+        "askingPrice": "50,000,002",
+        "images": [
+            "http://localhost:8080/myImages/house-icon.svg"
+        ],
+        "seller": {
+            "userId": "d0e30db9-c2c1-4ea7-a926-48c440ce8e09",
+            "username": "shafi",
+            "password": "$2b$12$tYdedrOBTnRovkZgAwFaWuHiTp9fORoIGUpmNB7uJ/P7v34JitNxq"
+        }
+    },
+    {
+        "propertyId": "2b4b8dde-d454-4dec-b46b-4ce670f2294f",
+        "address": {
+            "street": "2414-2370 Arbutus Way",
+            "city": "Kamloops"
+        },
+        "rooms": 1,
+        "washrooms": 1,
+        "description": "This USB-C phone charger features fast charging for the latest devices",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "300,450",
+        "images": [
+            "http://localhost:8080/myImages/house-icon.svg"
+        ],
+        "seller": {
+            "userId": "d0e30db9-c2c1-4ea7-a926-48c440ce8e09"
+        }
+    },
+    {
+        "propertyId": "e8063499-5fd1-4830-af9f-095d6a4f4d07",
+        "address": {
+            "street": "34 22 Pacific St",
+            "city": "Vancouver"
+        },
+        "rooms": 1,
+        "washrooms": 1,
+        "description": "sioiuoilkjlkSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis",
+        "recentUpgrade": "Not Available",
+        "askingPrice": "239,000",
+        "images": [
+            "http://localhost:8080/myImages/24.jpg",
+            "http://localhost:8080/myImages/26.jpg"
+        ],
+        "seller": {
+            "userId": "d0e30db9-c2c1-4ea7-a926-48c440ce8e09"
+        }
+    },
+    {
         "propertyId": "89083e8f-f94f-4477-b4af-5364acb5c500",
         "address": {
             "street": "rr",

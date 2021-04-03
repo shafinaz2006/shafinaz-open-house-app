@@ -8,6 +8,12 @@
     &__container {
         @include flex-row;
         flex-wrap: wrap;
+        // &--NA {
+        //     justify-content: center;
+        // }
+    }
+    &__subHeading {
+        text-align: center;
     }
 }
 

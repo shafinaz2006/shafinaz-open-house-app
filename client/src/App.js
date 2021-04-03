@@ -25,20 +25,12 @@ class App extends React.Component {
         this.setState({sessionUser: Cookies.get('username'), sessionUserId: Cookies.get('userId')});
     }
 
-// setting Cookie username and userId after Logout:
-
-    // removeCookie = () =>{
-    //     Cookies.remove('username');
-    //     Cookies.remove('userId');
-    //     this.setState({sessionUser: '', sessionUserId: ''});
-    // }
     render() {
         return (
             <div className="App">
                 <Header sessionUser={this.state.sessionUser} />
                 <Hero />
-                <Main handleCookie={(user, id) => this.setCookie(user, id)} sessionUser={this.state.sessionUser} 
-                      handleRemoveCookie={this.removeCookie}/>
+                <Main handleCookie={(user, id) => this.setCookie(user, id)} sessionUser={this.state.sessionUser} />
                 <Footer />
             </div>
         );

@@ -10,12 +10,15 @@ import Login from '../Authentication/Login';
 import Logout from '../Authentication/Logout';
 import CreateProfile from '../CreateProfile/CreateProfile';
 import PropertiesList from '../PropertiesList/PropertiesList';
+import UserPropertiesList from '../PropertiesList/UserPropertiesList';
 import PropertyDetails from '../PropertyDetails/PropertyDetails';
+import UserPropertyDetails from '../PropertyDetails/UserPropertyDetails';
 import AssociateList from '../Associates/AssociateList';
 import AssociateDetails from '../Associates/AssociateDetails';
 import AddProperty from '../AddProperty/AddProperty';
 import BuyerChecklist from '../Checklist/BuyerChecklist';
 import SellerChecklist from '../Checklist/SellerChecklist';
+import TestComponent from '../TestComponent';
 import Cookies from 'js-cookie';
 
 class Main extends React.Component {
@@ -80,17 +83,6 @@ class Main extends React.Component {
             });
     }
 
-// // handle logout: 
-
-//     handleLogout = () =>{
-//         axios
-//             .get('http://localhost:8080/logout')
-//             .then(response => {
-//                 // console.log(response.data);
-//                 this.props.handleRemoveCookie();
-//             })
-//             .catch(error => console.log('Error in logout', error))
-//     }
 
 // Handle Create Profile:
 
@@ -139,6 +131,9 @@ class Main extends React.Component {
             .catch(error => console.log('Error in add new property', error));
     }
 
+// View User Property:
+
+
 
 // CompoundDidMount():
 
@@ -159,6 +154,9 @@ class Main extends React.Component {
                                 <Redirect from='/home' to='/'/>
                                 <Route path='/' exact component={Home}/>
                                 <Route path='/authenticate' exact component={Authentication}/>
+                                
+                                
+                                
                                 <Route path='/register' exact 
                                     render={(routerProps) =>{
                                         return <Register errorMsg={this.state.errorMessageReg} 
@@ -184,11 +182,26 @@ class Main extends React.Component {
                                                      handleCreateProfile={this.handleCreateProfile} {...routerProps}/>
                                 }}
                                 />
+                                <Route path='/users/:userId/properties' exact 
+                                        render={(routerProps) =>{
+                                            return <UserPropertiesList properties={this.state.properties}
+                                             {...routerProps}/>
+                                        }}
+                                />
+                                <Route path='/users/:userId/properties/:propertyId' exact 
+                                        render={(routerProps) =>{
+                                            return <UserPropertyDetails property=
+                                                {this.state.properties.find(property => 
+                                                    property.propertyId === routerProps.match.params.propertyId 
+                                                    )} {...routerProps}/>
+                                        }}
+                                />
                                 <Route path='/properties' exact
                                     render={(routerProps) =>{
                                         return <PropertiesList properties={this.state.properties} {...routerProps}/>
                                     }}
                                 />
+                                
                                 <Route path='/properties/add-property' exact
                                     render={(routerProps) =>{
                                         return <AddProperty handleAddProperty ={this.addProperty} {...routerProps}/>
@@ -200,6 +213,7 @@ class Main extends React.Component {
                                                 {this.state.properties.find(property => property.propertyId === routerProps.match.params.propertyId)} {...routerProps}/>
                                     }}
                                 />
+                                
                                 <Route path='/associates' exact
                                     render={(routerProps) =>{
                                         return <AssociateList associates={this.state.associates} {...routerProps}/>
