@@ -18,6 +18,7 @@ import AssociateDetails from '../Associates/AssociateDetails';
 import AddProperty from '../AddProperty/AddProperty';
 import BuyerChecklist from '../Checklist/BuyerChecklist';
 import SellerChecklist from '../Checklist/SellerChecklist';
+import DeleteProperty from '../DeleteProperty/DeleteProperty';
 import TestComponent from '../TestComponent';
 import Cookies from 'js-cookie';
 
@@ -145,7 +146,22 @@ class Main extends React.Component {
             .catch(error => console.log('Error in add new property', error));
     }
 
-// View User Property:
+// Delete User Property:
+
+    deleteProperty = (propertyId) =>{
+        let deleteURL = `http://localhost:8080/users/${Cookies.get('userId')}/properties/${propertyId}`
+        axios
+            .delete(deleteURL)
+            .then(response => {
+                console.log('Property Deleted. Response status from delele request', response.status);
+                // console.log('in delete property response', response.data.properties)
+                this.setState({properties: response.data.properties, userProperties: response.data.userProperties});
+                
+            })
+            .catch(error => {
+                console.log('Delete post has error: ', error);
+            })
+    }
 
 
 
@@ -208,9 +224,10 @@ class Main extends React.Component {
                                             return <UserPropertyDetails property=
                                                 {this.state.userProperties.find(property => 
                                                     property.propertyId === routerProps.match.params.propertyId 
-                                                    )} {...routerProps}/>
+                                                    )} handleDeleteProperty={this.deleteProperty} {...routerProps}/>
                                         }}
                                 />
+                                <Route path='/users/:userId/properties/:propertyId/delete' exact component={DeleteProperty}/>
                                 <Route path='/properties' exact
                                     render={(routerProps) =>{
                                         return <PropertiesList properties={this.state.properties} {...routerProps}/>

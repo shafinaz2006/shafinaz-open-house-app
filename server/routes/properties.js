@@ -44,7 +44,7 @@ router.post('/', (req, res) =>{
     }else {
         imageCollection.push('http://localhost:8080/myImages/house-icon.svg');
     }
-    console.log(imageCollection);
+    // console.log(imageCollection);
     let newProperty={
         propertyId: uuidv4(),
         address:{
@@ -58,18 +58,18 @@ router.post('/', (req, res) =>{
         askingPrice: req.body.askingPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
         images: imageCollection
     }
-    console.log('userid in post property, ', req.body.sellerId);
+    // console.log('userid in post property, ', req.body.sellerId);
     let allSellers = utils.getAllSellers();
     let sellerInfo = allSellers.find(user => user.userId === req.body.sellerId);
     if(sellerInfo){   newProperty.seller = {name: sellerInfo.name, phone: sellerInfo.phone, email: sellerInfo.email}}
     else {
         let allUsers = utils.getAllUser();
         let userInfo = allUsers.find(user => user.userId === req.body.sellerId);
-        console.log(userInfo.username);
+        // console.log(userInfo.username);
         if(!userInfo){   newProperty.user ={userId: req.body.sellerId}}
         else { newProperty.seller = {userId: req.body.sellerId, name: userInfo.username}}
     }
-    console.log('newData before adding to file', newProperty) 
+    // console.log('newData before adding to file', newProperty) 
     let propertiesData = utils.getAllProperties();
     propertiesData.unshift(newProperty);
     fs.writeFileSync("./data/properties.json", JSON.stringify(propertiesData));

@@ -1,0 +1,17 @@
+@import '../../Styles/abstracts/variables.scss';
+@import '../../Styles/abstracts/mixins.scss';
+.deleteProperty {
+    @include flex-column;
+    width: 65%;
+    padding-left: 4rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    &__heading {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        @include h2-sub-header;
+        &--status {
+            padding-bottom: 2.5rem;
+        }
+    }
+}

@@ -22,6 +22,16 @@ router.get('/:userId/properties', (req, res) =>{
 
 })
 
+// delete method:
+
+router.delete('/:userId/properties/:propertyId', (req, res) =>{
+    let propertiesData = utils.getAllProperties();
+    let updatedPropertyData = propertiesData.filter(property =>property.propertyId !== req.params.propertyId)
+    let updatedUserPropertyData = updatedPropertyData.filter(property =>property.seller.userId === req.params.userId)
+    fs.writeFileSync("./data/properties.json", JSON.stringify(updatedPropertyData));
+    if(updatedPropertyData) res.status(200).send({properties: updatedPropertyData, userProperties: updatedUserPropertyData});
+
+})
 // Post method:
 
 router.post('/:userId/properties/:propertyId', (req, res) =>{
