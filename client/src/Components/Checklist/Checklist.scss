@@ -1,16 +1,22 @@
 @import '../../Styles/abstracts/variables.scss';
 @import '../../Styles/abstracts/mixins.scss';
 .checklist {
+    @include flex-column;
+    width: 90%;
+    padding-left: 4rem;
+    align-items: flex-start;
     &__heading {
         margin-bottom: 1rem;
+        @include h2-sub-header;
     }
     &__subHeading {
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
     }
     &__item {
         @include flex-row;
         align-items: center;
         justify-content: flex-start;
+        padding-bottom: 0.5rem;
     }
     &__icon {
         height: 1rem;

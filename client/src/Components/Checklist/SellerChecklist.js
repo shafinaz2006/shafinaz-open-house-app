@@ -21,7 +21,7 @@ function SellerChecklist(){
         )
     })
     return(
-        <section className='sellerChecklist'>
+        <section className='checklist'>
             <h2 className='checklist__heading'>Seller Checklist</h2>
             <p className='checklist__subHeading'>This checklist will help you to organize your tasks</p>
             {sellerList}       

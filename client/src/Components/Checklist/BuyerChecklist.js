@@ -5,7 +5,7 @@ import check from '../../assets/icons/check.svg';
 
 function BuyerChecklist(){
     let buyerChecklist = [
-        {id: 1, item: 'When the furnace was updated?/How old is the furnace'},
+        {id: 1, item: 'When the furnace was updated?How old is the furnace?'},
         {id: 2, item: 'How the water system works?'},
         {id: 3, item: 'What is the air condition system?'},
         {id: 4, item: 'Check all the kitchen appliances'},
@@ -24,9 +24,9 @@ function BuyerChecklist(){
         )
     })
     return(
-        <section className='sellerChecklist'>
+        <section className='checklist sellerChecklist'>
             <h2 className='checklist__heading'>Buyer Checklist</h2>
-            <p className='checklist__subHeading'>This checklist will help you to organize your tasks</p>
+            <h3 className='checklist__subHeading'>This checklist will help you to organize your tasks</h3>
             {buyerList}       
         </section>
     )

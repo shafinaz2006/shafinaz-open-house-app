@@ -51,6 +51,7 @@ const properties = require('./routes/properties');
 const associates = require('./routes/associates');
 const profile = require('./routes/profile');
 const users = require('./routes/UserRoutes');
+const sellers = require('./routes/SellerRoutes');
 
 // Static images:
 
@@ -67,6 +68,7 @@ app.use('/profile', profile);
 app.use('/properties', properties);
 app.use('/associates', associates);
 app.use('/users', users);
+app.use('/sellers', sellers);
 
 
 // Server Listening: 

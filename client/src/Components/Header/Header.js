@@ -35,7 +35,7 @@ function Header({ sessionUser }) {
                         <a href='/authenticate' className='nav__link'>Login/Register</a>
                     </div> :
                     <div className='nav__loggedInDiv'>
-                        <a href='/profile' className='nav__link'>Hello, {name} !!</a>
+                        <a href='/profile' className='nav__link'>Hello, {name}!!</a>
                         <a href='/logout' className='nav__link' onClick={logout}>Logout</a>
                     </div>
                 }

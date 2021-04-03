@@ -87,7 +87,6 @@ class AddProperty extends React.Component {
     handleFormSubmit = (event) => {
         event.preventDefault();
         if (this.isFormValid()) {
-            // console.log('Cookies in addProperty: ', Cookies.get('username'), Cookies.get('userId'));
             this.setState({ isFormSubmitted: true });
             let newData = new FormData();
             newData.append('street', this.state.street);

@@ -11,25 +11,26 @@ router.use(express.json());
 router.post('/', (req, res) =>{
     // console.log('in create-profile', req.body);
     let newData = {
-        userId: uuidv4(),
+        userId: req.body.userId,
         name: req.body.name,
         phone: req.body.phone,
         email: req.body.email,
     }
+    const allSellers = utils.getAllSellers();
+    const allAssociates = utils.getAllAssociates();
     if(req.body.type === 'Seller'){
         newData.type = 'seller';
-        const allSellers = utils.getAllSellers();
         allSellers.push(newData);
         fs.writeFileSync("./Data/seller.json", JSON.stringify(allSellers));
     }else {
         newData.profession= req.body.profession;
         newData.refereeName= req.body.refereeName;
         newData.refereePhone= req.body.refereePhone;
-        const allAssociates = utils.getAllAssociates();
         allAssociates.push(newData);
         fs.writeFileSync("./Data/associates.json", JSON.stringify(allAssociates));
     }
-    res.send('In create profile post route');
+    if(allSellers || allAssociates)  res.status(200).send('In create profile post route', {sellers: allSellers, associates: allAssociates} );
+    else res.status(400).send('in Error');
 })
 
 module.exports = router;

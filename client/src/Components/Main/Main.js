@@ -9,6 +9,7 @@ import Register from '../Authentication/Register';
 import Login from '../Authentication/Login';
 import Logout from '../Authentication/Logout';
 import CreateProfile from '../CreateProfile/CreateProfile';
+import ViewProfile from '../ViewProfile/ViewProfile';
 import PropertiesList from '../PropertiesList/PropertiesList';
 import UserPropertiesList from '../PropertiesList/UserPropertiesList';
 import PropertyDetails from '../PropertyDetails/PropertyDetails';
@@ -28,6 +29,7 @@ class Main extends React.Component {
         properties: '',
         associates: '',
         userProperties: '',
+        sellers: '',
         errorMessageReg:'',
         errorMessageLogin: '',
         errorMessageCreateProfile: '',
@@ -94,6 +96,7 @@ class Main extends React.Component {
             .post('http://localhost:8080/profile', newProfile)
             .then(response =>{
                 console.log(response.data);
+                this.setState({sellers: response.data.sellers, associates: response.data.associates});
 
             })
             .catch(error => console.log('Error to create profile', error));
@@ -134,6 +137,19 @@ class Main extends React.Component {
             .catch(error => console.log('Error in associates data', error))
     }
 
+// Get all sellers data:
+
+    getSellersData = () =>{
+        axios
+            .get('http://localhost:8080/sellers')
+            .then(response => {
+                console.log('sellers data in main', response.data)
+                this.setState({sellers: response.data});
+            })
+            .catch(error => console.log('Error in sellers data', error))
+    }
+
+
 // Post new property:
 
     addProperty = (newData) =>{
@@ -171,6 +187,7 @@ class Main extends React.Component {
         this.getPropertiesData();
         this.getAssociatesData();
         this.getUserPropertiesData();
+        this.getSellersData();
     }
     
     render(){
@@ -207,11 +224,18 @@ class Main extends React.Component {
                                 }}
                                 />
                                
-                                 <Route path='/profile' exact 
+                                 <Route path='/users/:userId/create-profile' exact 
                                  render={(routerProps) =>{
                                     return <CreateProfile errorMsg={this.state.errorMessageCreateProfile} currentUserId={this.state.currentUserId}
-                                                     handleCreateProfile={this.handleCreateProfile} {...routerProps}/>
+                                                     handleCreateProfile={this.handleCreateProfile} 
+                                                     sellers={this.state.sellers} associates={this.state.associates}{...routerProps}/>
                                 }}
+                                />
+                                <Route path='/users/:userId/view-profile' exact 
+                                        render={(routerProps) =>{
+                                            return <ViewProfile sellers={this.state.sellers} associates={this.state.associates}hello={'hello'}
+                                             {...routerProps}/>
+                                        }}
                                 />
                                 <Route path='/users/:userId/properties' exact 
                                         render={(routerProps) =>{

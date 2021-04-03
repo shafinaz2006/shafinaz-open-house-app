@@ -15,7 +15,8 @@ function LeftBar() {
                 <>
                     <h3 className='leftBar__userHeading'>User Menu</h3>
                     <ul className='list'>
-                        <li className='leftBar__item'><a href='/profile' className='link leftBar__link'>Create Your Profile</a></li>
+                        <li className='leftBar__item'><a href={`/users/${Cookies.get('userId')}/create-profile`} className='link leftBar__link'>Create Profile</a></li>
+                        <li className='leftBar__item'><a href={`/users/${Cookies.get('userId')}/view-profile`} className='link leftBar__link'>View Profile</a></li>
                         <li className='leftBar__item'><a href={`/users/${Cookies.get('userId')}/properties`} className='link leftBar__link'>View your properties</a></li>
                         <li className='leftBar__item'><a href='/properties/add-property' className='link leftBar__link'> Add new property </a></li>
                     </ul>

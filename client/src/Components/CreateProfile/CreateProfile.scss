@@ -1,4 +1,19 @@
+@import '../../Styles/abstracts/variables.scss';
+@import '../../Styles/abstracts/mixins.scss';
 .createProfile {
+    @include flex-column;
+    width: 75%;
+    padding-left: 6rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    &__heading {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        @include h2-sub-header;
+        &--status {
+            padding-bottom: 2.5rem;
+        }
+    }
     &__type {
         display: flex;
         flex-direction: row;
