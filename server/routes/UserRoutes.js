@@ -32,15 +32,19 @@ router.delete('/:userId/properties/:propertyId', (req, res) =>{
     if(updatedPropertyData) res.status(200).send({properties: updatedPropertyData, userProperties: updatedUserPropertyData});
 
 })
-// Post method:
 
-router.post('/:userId/properties/:propertyId', (req, res) =>{
-    let imageCollection = [];
+// PUT method:
+
+router.put('/:userId/properties/:propertyId/edit', (req, res) =>{
+    let propertiesData = utils.getAllProperties();
+    let updatePropertyData = propertiesData.filter(property =>property.propertyId !== req.params.propertyId)
+    let imageCollection = [...updatePropertyData[0].images];
+    // let imageCollection = [...req.body.newImageCol];
+    console.log(req.body.newImageCol)
     console.log(req.files)
     if(req.files){
         let pic = req.files.image;
         let reqPath = path.join(__dirname, '../', 'public/myImages/');
-        console.log('pic', pic.length);
         if(pic.length){
             for(let i = 0; i < pic.length; i++){
                 console.log('inside image for loop')
@@ -51,14 +55,10 @@ router.post('/:userId/properties/:propertyId', (req, res) =>{
             pic.mv(reqPath + pic.name);
             imageCollection.push(`http://localhost:8080/myImages/${pic.name}`);  
         }
-        
-        
-    }else {
-        imageCollection.push('http://localhost:8080/myImages/house-icon.svg');
     }
-    console.log(imageCollection);
-    let newProperty={
-        propertyId: uuidv4(),
+    // console.log(imageCollection);
+    let updatedProperty={
+        propertyId: req.body.propertyId,
         address:{
             street: req.body.street,
             city: req.body.city,
@@ -70,27 +70,23 @@ router.post('/:userId/properties/:propertyId', (req, res) =>{
         askingPrice: req.body.askingPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
         images: imageCollection
     }
-    console.log('userid in post property, ', req.body.sellerId);
+    
     let allSellers = utils.getAllSellers();
     let sellerInfo = allSellers.find(user => user.userId === req.body.sellerId);
-    if(sellerInfo){   newProperty.seller = {name: sellerInfo.name, phone: sellerInfo.phone, email: sellerInfo.email}}
+    if(sellerInfo){   updatedProperty.seller = {userId: sellerInfo.userId, name: sellerInfo.name, phone: sellerInfo.phone, email: sellerInfo.email}}
     else {
         let allUsers = utils.getAllUser();
         let userInfo = allUsers.find(user => user.userId === req.body.sellerId);
-        console.log(userInfo.username);
-        if(!userInfo){   newProperty.user ={userId: req.body.sellerId}}
-        else { newProperty.seller = {userId: req.body.sellerId, name: userInfo.username}}
+        if(!userInfo){   updatedProperty.user ={userId: req.body.sellerId}}
+        else { updatedProperty.seller = {userId: req.body.sellerId, name: userInfo.username}}
     }
-    console.log('newData before adding to file', newProperty) 
-    let propertiesData = utils.getAllProperties();
-    // propertiesData.unshift(newProperty);
-    console.log(propertiesData)
-    // fs.writeFileSync("./data/properties.json", JSON.stringify(propertiesData));
-    if(newProperty) res.send('new property');
+    // console.log('newData before adding to file', updatedProperty) 
+    
+    let updatedPropertiesData = propertiesData.map(property => property.propertyId === updatedProperty.propertyId? updatedProperty : property );
+    fs.writeFileSync("./data/properties.json", JSON.stringify(updatedPropertiesData));
+    if(updatedProperty) res.send('new property');
     else res.status(400).send('Error in new Property data');
 })
-
-
 
 
 

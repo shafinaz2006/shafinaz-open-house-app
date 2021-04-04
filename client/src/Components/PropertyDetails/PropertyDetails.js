@@ -39,7 +39,11 @@ const PropertyDetails = ({property}) =>{
                 </div>:
                 <p className='propertyDetails__sellerName'>Seller's contact information is not available.</p>
                 }
-                {property.seller.name?<a className='link button button--propertyDetails' href='/home'>Connect with seller </a>: '' }
+                {property.seller.name?
+                <div className='propertyDetails__userButtons'>
+                    <a className='link button button--propertyDetails' href='/home'>Connect with seller </a>
+                </div>: ''
+                }
             </div>
         </section>
     )

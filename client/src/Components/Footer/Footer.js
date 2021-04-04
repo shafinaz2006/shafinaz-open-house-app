@@ -6,7 +6,9 @@ import './Footer.scss';
 function Footer(){
     return(
         <footer className='footer'>
-            <p>Copyright &copy; <img src={logo} alt='logo'/>OPENHOUSE, Inc. All Rights Reserved.</p>
+            <p>Copyright &copy; <img className='footer__logo' src={logo} alt='logo'/>OPENHOUSE, Inc. 
+                <span className='footer__info'>All Rights Reserved.</span>
+            </p>
         </footer>
     )
 }

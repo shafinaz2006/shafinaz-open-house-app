@@ -9,8 +9,6 @@
     height: 5rem;
     background-color: $color-primary-bg;
     color: white;
-    // position: fixed;
-    // top: 0;
     &__logo-container {
         display: flex;
         flex-direction: row;
@@ -43,6 +41,7 @@
         width: 30%;
         justify-content: flex-end;
         padding-right: 6.25rem;
+        padding-bottom: 0.4rem;
     }
 }
 

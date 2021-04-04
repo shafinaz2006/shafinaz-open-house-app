@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 module.exports = {
 
     getAllUser: () => {
@@ -7,15 +8,23 @@ module.exports = {
         return parsedData;
     },
 
+    getAllUserProfiles: () =>{
+        const allUser = fs.readFileSync('./data/userProfiles.json');
+        const parsedData = JSON.parse(allUser);
+        return parsedData;
+    },
+
     getAllSellers: () =>{
-        const allSeller = fs.readFileSync('./data/seller.json');
-        const parsedData = JSON.parse(allSeller);
+        const allSeller = fs.readFileSync('./data/userProfiles.json');
+        let parsedData = JSON.parse(allSeller);
+        parsedData = parsedData.filter(data => data.type === 'seller')
         return parsedData;
     },
 
     getAllAssociates: () =>{
-        const allAssociates = fs.readFileSync('./data/associates.json');
-        const parsedData = JSON.parse(allAssociates);
+        const allAssociates = fs.readFileSync('./data/userProfiles.json');
+        let parsedData = JSON.parse(allAssociates);
+        parsedData = parsedData.filter(data => data.type === 'associate')
         return parsedData;
     },
 

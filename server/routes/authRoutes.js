@@ -29,7 +29,7 @@ passport.use('register', new LocalStrategy(
                     return done(null, false, { failure: 'Registration is not complete' });
                 });
         } else {
-            console.log('the username already exits');
+            // console.log('the username already exits');
             return done(null, true, { failure: 'The Username already exists.' });
         }
     }
@@ -45,7 +45,6 @@ passport.use('login', new LocalStrategy(
             bcrypt
                 .compare(password, user.password)
                 .then(response => {
-                    // console.log('bcrypt response received', response);
                     if (!response) return done(null, true, { failure: 'Password has not matched.' });
                     else return done(null, user, { success: 'User found' });
                 })

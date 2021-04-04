@@ -3,7 +3,6 @@ import './AssociateList.scss';
 import profilePic from '../../assets/icons/profileIcon.svg'
 const AssociateDetails = ({associate}) =>{
     let firstName= associate.name.split(' ')[0];
-    console.log(associate.name);
     return(
         <section className='associateDetails'>
             <div className='associateDetails__profilePicDiv'>
@@ -17,7 +16,7 @@ const AssociateDetails = ({associate}) =>{
                 <h4 className='associateDetails__referee'>Referee information:</h4>
                 <h4 className='associateDetails__refName'>Name: {associate.refereeName}</h4>
                 <p className='associateDetails__refPhone'>Phone number: {associate.refereePhone}</p>
-                <a href = {`/associates/${associate.associateId}`} className='link button button--associateConnect associateDetails__link'>
+                <a href = {`/associates/${associate.associateId}`} className='link button button--associateConnect'>
                     Message {firstName}
                 </a>
             </div>

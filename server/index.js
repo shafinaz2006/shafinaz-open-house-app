@@ -47,9 +47,9 @@ passport.deserializeUser(function(user, done) {
 // Routes:
 
 const authRoutes = require('./routes/authRoutes');
-const properties = require('./routes/properties');
-const associates = require('./routes/associates');
-const profile = require('./routes/profile');
+const properties = require('./routes/propertiesRoutes');
+const associates = require('./routes/associatesRoutes');
+const profile = require('./routes/profileRoutes');
 const users = require('./routes/UserRoutes');
 const sellers = require('./routes/SellerRoutes');
 
@@ -73,6 +73,4 @@ app.use('/sellers', sellers);
 
 // Server Listening: 
 
-app.listen(port, () => {
-    console.log(`server listening at ${port}`);
-})
+app.listen(port, () =>  console.log(`server listening at ${port}`));

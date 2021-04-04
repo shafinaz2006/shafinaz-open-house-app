@@ -9,4 +9,10 @@
     background-color: rgb(11, 19, 43);
     color: white;
     @include body-small;
+    &__logo {
+        margin-bottom: -0.2rem;
+    }
+    &__info {
+        padding-left: 0.5rem;
+    }
 }

@@ -5,7 +5,7 @@ import check from '../../assets/icons/check.svg';
 
 function BuyerChecklist(){
     let buyerChecklist = [
-        {id: 1, item: 'When the furnace was updated?How old is the furnace?'},
+        {id: 1, item: 'When the furnace was updated? How old is the furnace?'},
         {id: 2, item: 'How the water system works?'},
         {id: 3, item: 'What is the air condition system?'},
         {id: 4, item: 'Check all the kitchen appliances'},

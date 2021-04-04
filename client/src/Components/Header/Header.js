@@ -20,7 +20,6 @@ function Header({ sessionUser }) {
             .then(response => {
                 Cookies.remove('username');
                 Cookies.remove('userId');
-                // console.log(Cookies.get('username'));
             })
             .catch(error => console.log('Error in logout', error))
     }

@@ -27,7 +27,15 @@
         width: 40%;
     }
     &--associate {
-        width: 100%;
+        margin-top: 1rem;
+        width: 50%;
+        margin-bottom: 0.25rem;
+    }
+    &--associateConnect {
+        margin-top: 1.5rem;
+        width: fit-content;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
     &--register {
         margin-top: 1rem;
@@ -45,8 +53,8 @@
         width: 14vw;
         align-self: center;
     }
-    &--userPropertyDetails {
-        width: 20vw;
+    &--propertyDetails {
+        width: 16vw;
         margin-bottom: 1rem;
     }
 }

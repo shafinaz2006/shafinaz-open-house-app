@@ -16,7 +16,8 @@ import PropertyDetails from '../PropertyDetails/PropertyDetails';
 import UserPropertyDetails from '../PropertyDetails/UserPropertyDetails';
 import AssociateList from '../Associates/AssociateList';
 import AssociateDetails from '../Associates/AssociateDetails';
-import AddProperty from '../AddProperty/AddProperty';
+import AddProperty from '../AddUpdateProperty/AddProperty';
+import UpdateProperty from '../AddUpdateProperty/UpdateProperty';
 import BuyerChecklist from '../Checklist/BuyerChecklist';
 import SellerChecklist from '../Checklist/SellerChecklist';
 import DeleteProperty from '../DeleteProperty/DeleteProperty';
@@ -91,7 +92,7 @@ class Main extends React.Component {
 // Handle Create Profile:
 
     handleCreateProfile = (newProfile) =>{
-        console.log('in handle create profile method', newProfile);
+        // console.log('in handle create profile method', newProfile);
         axios
             .post('http://localhost:8080/profile', newProfile)
             .then(response =>{
@@ -143,7 +144,7 @@ class Main extends React.Component {
         axios
             .get('http://localhost:8080/sellers')
             .then(response => {
-                console.log('sellers data in main', response.data)
+                // console.log('sellers data in main', response.data)
                 this.setState({sellers: response.data});
             })
             .catch(error => console.log('Error in sellers data', error))
@@ -156,6 +157,18 @@ class Main extends React.Component {
         console.log(newData);
         axios
             .post('http://localhost:8080/properties', newData)
+            .then(response =>{
+                console.log(response.data);
+            })
+            .catch(error => console.log('Error in add new property', error));
+    }
+
+// Edit Property:
+
+    updateProperty = (propertyData, propertyId) =>{
+        console.log('update property request', propertyData);
+        axios
+            .put(`http://localhost:8080/users/${Cookies.get('userId')}/properties/${propertyId}/edit`, propertyData)
             .then(response =>{
                 console.log(response.data);
             })
@@ -178,8 +191,6 @@ class Main extends React.Component {
                 console.log('Delete post has error: ', error);
             })
     }
-
-
 
 // CompoundDidMount():
 
@@ -215,10 +226,7 @@ class Main extends React.Component {
                                 }}
                                 />
                                 <Route path='/logout' exact 
-                                 render={(routerProps) =>{
-                                    return <Logout 
-                                                     handleLogout={this.handleLogout} {...routerProps}/>
-                                }}
+                                    render={(routerProps) =>{ return <Logout handleLogout={this.handleLogout} {...routerProps}/>}}
                                 />
                                  <Route path='/users/:userId/create-profile' exact 
                                  render={(routerProps) =>{
@@ -248,6 +256,19 @@ class Main extends React.Component {
                                         }}
                                 />
                                 <Route path='/users/:userId/properties/:propertyId/delete' exact component={DeleteProperty}/>
+                                <Route path='/users/:userId/properties/:propertyId/edit' exact
+                                    render={(routerProps) =>{
+                                        return <UpdateProperty property=
+                                            {this.state.properties.find(property => 
+                                                    property.propertyId === routerProps.match.params.propertyId 
+                                                )} handleUpdateProperty={this.updateProperty} {...routerProps}/>
+                                    }}
+                                />
+                                <Route path='/properties' exact
+                                    render={(routerProps) =>{
+                                        return <PropertiesList properties={this.state.properties} {...routerProps}/>
+                                    }}
+                                />
                                 <Route path='/properties' exact
                                     render={(routerProps) =>{
                                         return <PropertiesList properties={this.state.properties} {...routerProps}/>
