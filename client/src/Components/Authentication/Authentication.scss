@@ -3,8 +3,8 @@
 .authentication {
     @include flex-column;
     width: 65%;
-    padding-left: 4rem;
-    align-items: flex-start;
+    padding-left: 3rem;
+    align-items: center;
     justify-content: flex-start;
     &__registerAndLogin {
         padding-top: 2rem;

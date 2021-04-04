@@ -5,20 +5,16 @@ import Cookies from 'js-cookie';
 
 class Register extends React.Component {
     state = {
-        username: '',
-        password: '',
-
-        usernameError: false,
-        passwordError: false,
+        username: '',  password: '',
+        usernameError: false, passwordError: false,
         isValid: true,
         isFormSubmitted: false,
     }
 
-    // handle change:
+// handle change:
 
     handleChange = (event) => {
         let x = event.target.name + 'Error'
-        // console.log(event.target.value, x)
         if (event.target.value === '') this.setState({ [x]: true });
         else this.setState({ [x]: false });
         this.setState({ [event.target.name]: event.target.value });
@@ -31,20 +27,13 @@ class Register extends React.Component {
         <span className='input--error-msg'>This field is required </span>
     </div>
 
-// Alert div (invisible)
-
-    // AlertInvisible = () => <div className='input--errorContainer-invisible'>
-    //     <img src={errorIcon} alt="error" className='input--error-img' />
-    //     <span className='input--error-msg'>This field is required </span>
-    // </div>
 
 // Form validation:
 
     isFormValid = () => {
         if(!this.state.username) this.setState({usernameError: true});
         if(!this.state.password) this.setState({passwordError: true});
-        if (this.state.usernameError || this.state.passwordError||
-            !this.state.username || !this.state.password) {
+        if (this.state.usernameError || this.state.passwordError || !this.state.username || !this.state.password) {
             this.setState({ isValid: false });
             return false;
         }
@@ -87,12 +76,12 @@ class Register extends React.Component {
                         <form className='authentication__reg-form'
                             onSubmit={(event) => { this.handleSubmit(event) }}>
                             <label className='input-label' htmlFor='username'>Username:
-                                <input className={`input input--register ${this.state.usernameError ? 'input--error' : ''}`} type='text'
+                                <input className='input input--register' type='text'
                                     placeholder='username' id='username' name='username' onChange={this.handleChange} />
                                 {this.state.usernameError ? this.Alert() : ''}
                             </label>
                             <label className='input-label' htmlFor='password'>Password:
-                                <input className={`input input--register ${this.state.passwordError ? 'input--error' : ''}`} type='password' placeholder='password'
+                                <input className='input input--register' type='password' placeholder='password'
                                     name='password' id='password' onChange={this.handleChange} autoComplete='off' />
                                 {this.state.passwordError ? this.Alert() : ''}
                             </label>

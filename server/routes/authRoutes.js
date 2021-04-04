@@ -15,19 +15,17 @@ passport.use('register', new LocalStrategy(
     function (username, password, done) {
         let allUser = utils.getAllUser();
         let user = allUser.find(user => user.username.toLowerCase() === username.toLowerCase());
-        console.log(user);
+        // console.log(user);
         if (!user) {
             bcrypt
                 .hash(password, 12)
                 .then(response => {
                     let newUser = { userId: uuidv4(), username: username, password: response }
                     allUser.push(newUser);
-                    console.log('after bcrypt', newUser)
                     fs.writeFileSync("./data/users.json", JSON.stringify(allUser));
                     return done(null, newUser, { success: 'Registration complete' });
                 })
                 .catch(error => {
-                    console.log(error);
                     return done(null, false, { failure: 'Registration is not complete' });
                 });
         } else {
@@ -41,20 +39,14 @@ passport.use('register', new LocalStrategy(
 
 passport.use('login', new LocalStrategy(
     function (username, password, done) {
-        console.log('req in login strategy')
-        console.log('in strategy', username, password);
         let allUser = utils.getAllUser();
-        let user = allUser.find(user => user.username === username);
+        let user = allUser.find(user => user.username.toLowerCase() === username.toLowerCase());
         if (user) {
             bcrypt
                 .compare(password, user.password)
                 .then(response => {
-                    console.log('bcrypt response received', response);
-                    
-                    if (!response) {
-                        return done(null, true, { failure: 'Password has not matched.' });
-                        
-                    }
+                    // console.log('bcrypt response received', response);
+                    if (!response) return done(null, true, { failure: 'Password has not matched.' });
                     else return done(null, user, { success: 'User found' });
                 })
                 .catch(error => {
@@ -62,7 +54,6 @@ passport.use('login', new LocalStrategy(
                     return done(null, false, { failure: 'Please login again!' });
                 })
         } else {
-            // console.log('error');
             return done(null, true, { failure: 'Username is invalid' });
         }
     }
@@ -72,7 +63,6 @@ passport.use('login', new LocalStrategy(
 // Registration Post Request: 
 
 router.post('/register', passport.authenticate('register'), (req, res) => {
-    // console.log('in register', req.user);
     if (req.authInfo.success) {
         req.session.user = req.user;
         return res.send({ user: req.user, message: { success: req.authInfo.success, failure: req.authInfo.failure } });
@@ -83,23 +73,19 @@ router.post('/register', passport.authenticate('register'), (req, res) => {
 // Login Post Request:
 
 router.post('/login', passport.authenticate('login'), (req, res) => {
-    // console.log('in login', req.user);
     if (req.authInfo.success) {
         req.session.user = req.user;
         return res.send({ user: req.user, message: { failure: req.authInfo.failure, success: req.authInfo.success } });
     }
-    else {
-        return res.send({ message: { failure: req.authInfo.failure, success: req.authInfo.success  } });
-    }
+    else return res.send({ message: { failure: req.authInfo.failure, success: req.authInfo.success  } });
 });
 
 
 // Logout
+
 router.get('/logout', function (req, res) {
-    // console.log(req);
     req.logout();
     res.send('Logged out');
 });
-
 
 module.exports = router;

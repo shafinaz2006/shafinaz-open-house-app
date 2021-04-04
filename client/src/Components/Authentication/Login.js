@@ -5,43 +5,34 @@ import Cookies from 'js-cookie';
 
 class Login extends React.Component {
     state = {
-        username: '',
-        password: '',
-
-        usernameError: false,
-        passwordError: false,
+        username: '',  password: '',
+        usernameError: false,  passwordError: false,
         isValid: true,
         isFormSubmitted: false,
         displayName: '',
     }
 
-    // handle change:
+// handle change:
 
     handleChange = (event) => {
         let x = event.target.name + 'Error'
-        // console.log(event.target.value, x)
         if (event.target.value === '') { this.setState({ [x]: true }); }
         else { this.setState({ [x]: false }); }
         this.setState({ [event.target.name]: event.target.value })
     }
 
-    // Alert div after validation:
+// Alert div after validation:
 
     Alert = () => <div className='input--errorContainer'>
         <img src={errorIcon} alt="error" className='input--error-img' />
         <span className='input--error-msg'>This field is required </span>
     </div>
 
-// Alert div (invisible)
-
-    // AlertInvisible = () => <div className='input--errorContainer-invisible'>
-    //     <img src={errorIcon} alt="error" className='input--error-img' />
-    //     <span className='input--error-msg'>This field is required </span>
-    // </div>
-
-    // Form validation:
+// Form validation:
 
     isFormValid = () => {
+        if(!this.state.username) this.setState({usernameError: true});
+        if(!this.state.password) this.setState({passwordError: true});
         if (!this.state.username|| !this.state.password || this.state.usernameError || this.state.passwordError) {
             this.setState({ isValid: false });
             return false;
@@ -67,7 +58,7 @@ class Login extends React.Component {
         return (
             <section className='authentication'>
                 {this.props.errorMsg ?
-                    <div className='authentication__section authentication__errorFromServer'>
+                    <div className='authentication__section authentication__formSubmitted'>
                         <h3 className="authentication__heading authentication__heading--status"> {this.props.errorMsg}</h3>
                         <a href='/login' className="link button button--big">Login Again!</a>
                     </div> : ''
@@ -97,7 +88,6 @@ class Login extends React.Component {
                         </form>
                     </div> : ''
                 }
-                
             </section>
         )
     }

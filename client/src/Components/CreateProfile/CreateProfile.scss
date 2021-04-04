@@ -14,13 +14,26 @@
             padding-bottom: 2.5rem;
         }
     }
+    &__formSubmitted {
+        @include flex-column;
+        align-items: center;
+        padding-top: 2rem;
+        @include h2-sub-header;
+    }
     &__type {
         display: flex;
         flex-direction: row;
+        margin-bottom: 1rem;
     }
     &__typeRadio {
         display: flex;
         flex-direction: row;
-        width: 6rem;
+        justify-content: center;
+        align-items: flex-start;
+        padding-left: 2rem;
+        padding-right: 1rem;
+    }
+    &__reg-form {
+        @include flex-column
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './ViewProfile.scss';
-import Cookies from 'js-cookie';
+
 
 function ViewProfile(props){
     const checkProfileCreated = () =>{
@@ -17,18 +17,33 @@ function ViewProfile(props){
             {!checkProfileCreated()? <h1 className='viewProfile__heading viewProfile__heading--status'> Your profile is not created</h1>: 
             <>
                 <h2 className='viewProfile__heading'>Your profile Information</h2>
-                <h3 className='viewProfile__subheading'>Name: </h3>
-                <p className='viewProfile__text'>{checkProfileCreated().name}</p>
-                <h3 className='viewProfile__subheading'>Phone: </h3>
-                <p className='viewProfile__text'>{checkProfileCreated().phone}</p>
-                <h3 className='viewProfile__subheading'>Email: </h3>
-                <p className='viewProfile__text'>{checkProfileCreated().email}</p>
-                <h3 className='viewProfile__subheading'>Profession: </h3>
-                <p className='viewProfile__text'>{checkProfileCreated().profession}</p>
-                <h3 className='viewProfile__subheading'>Referee Name: </h3>
-                <p className='viewProfile__text'>{checkProfileCreated().refereeName}</p>
-                <h3 className='viewProfile__subheading'>Referee Phone: </h3>
-                <p className='viewProfile__text'>{checkProfileCreated().refereePhone}</p>
+                <div className='viewProfile__content'>
+                    <h3 className='viewProfile__subHeading'>Name: </h3>
+                    <p className='viewProfile__text'>{checkProfileCreated().name}</p>
+                </div>
+                <div className='viewProfile__content'>
+                    <h3 className='viewProfile__subHeading'>Phone: </h3>
+                    <p className='viewProfile__text'>{checkProfileCreated().phone}</p>
+                </div>
+                <div className='viewProfile__content'>
+                    <h3 className='viewProfile__subHeading'>Email: </h3>
+                    <p className='viewProfile__text'>{checkProfileCreated().email}</p>
+                </div>
+                
+                {checkProfileCreated().profession? 
+                <>  <div className='viewProfile__content'>
+                        <h3 className='viewProfile__subHeading'>Profession: </h3>
+                        <p className='viewProfile__text'>{checkProfileCreated().profession}</p>
+                    </div>
+                    <div className='viewProfile__content'>
+                        <h3 className='viewProfile__subHeading'>Referee Name: </h3>
+                        <p className='viewProfile__text'>{checkProfileCreated().refereeName}</p>
+                    </div>
+                    <div className='viewProfile__content'>
+                        <h3 className='viewProfile__subHeading'>Referee Phone: </h3>
+                        <p className='viewProfile__text'>{checkProfileCreated().refereePhone}</p>
+                    </div>
+                </>: ''}
             </>}
         </section>
     )

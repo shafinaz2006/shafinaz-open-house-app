@@ -202,9 +202,6 @@ class Main extends React.Component {
                                 <Redirect from='/home' to='/'/>
                                 <Route path='/' exact component={Home}/>
                                 <Route path='/authenticate' exact component={Authentication}/>
-                                
-                                
-                                
                                 <Route path='/register' exact 
                                     render={(routerProps) =>{
                                         return <Register errorMsg={this.state.errorMessageReg} 
@@ -223,7 +220,6 @@ class Main extends React.Component {
                                                      handleLogout={this.handleLogout} {...routerProps}/>
                                 }}
                                 />
-                               
                                  <Route path='/users/:userId/create-profile' exact 
                                  render={(routerProps) =>{
                                     return <CreateProfile errorMsg={this.state.errorMessageCreateProfile} currentUserId={this.state.currentUserId}
@@ -233,7 +229,7 @@ class Main extends React.Component {
                                 />
                                 <Route path='/users/:userId/view-profile' exact 
                                         render={(routerProps) =>{
-                                            return <ViewProfile sellers={this.state.sellers} associates={this.state.associates}hello={'hello'}
+                                            return <ViewProfile sellers={this.state.sellers} associates={this.state.associates}
                                              {...routerProps}/>
                                         }}
                                 />

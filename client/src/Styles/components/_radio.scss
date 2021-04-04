@@ -1,8 +1,7 @@
-@use "../../styles/variables" as *;
-@import '../../styles/mixins';
+@import '../../Styles/abstracts/variables.scss';
 .radio {
-    height: 1rem;
-    width: 1rem;
+    height: 1.25rem;
+    width: 1.25rem;
     margin-right: 0.5rem;
     &:checked {
         border: 1px solid red;
@@ -12,6 +11,6 @@
     }
     &~label {
         padding-bottom: 0px;
-        color: $slate;
+        color: black;
     }
 }

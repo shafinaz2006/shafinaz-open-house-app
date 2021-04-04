@@ -29,7 +29,7 @@ router.post('/', (req, res) =>{
         allAssociates.push(newData);
         fs.writeFileSync("./Data/associates.json", JSON.stringify(allAssociates));
     }
-    if(allSellers || allAssociates)  res.status(200).send('In create profile post route', {sellers: allSellers, associates: allAssociates} );
+    if(allSellers || allAssociates)  res.status(200).send({sellers: allSellers, associates: allAssociates} );
     else res.status(400).send('in Error');
 })
 
