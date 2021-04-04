@@ -20,6 +20,7 @@ function Header({ sessionUser }) {
             .then(response => {
                 Cookies.remove('username');
                 Cookies.remove('userId');
+                // window.location = "/logout"
             })
             .catch(error => console.log('Error in logout', error))
     }
@@ -34,7 +35,7 @@ function Header({ sessionUser }) {
                         <a href='/authenticate' className='nav__link'>Login/Register</a>
                     </div> :
                     <div className='nav__loggedInDiv'>
-                        <a href='/profile' className='nav__link'>Hello, {name}!!</a>
+                        <a href={`/users/${Cookies.get('userId')}/profile`} className='nav__link'>Hello, {name}!!</a>
                         <a href='/logout' className='nav__link' onClick={logout}>Logout</a>
                     </div>
                 }

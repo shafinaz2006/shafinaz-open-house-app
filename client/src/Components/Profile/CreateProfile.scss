@@ -11,6 +11,7 @@
         padding-top: 1rem;
         @include h2-sub-header;
         &--status {
+            padding-top: 1rem;
             padding-bottom: 2.5rem;
         }
     }
@@ -24,6 +25,7 @@
         display: flex;
         flex-direction: row;
         margin-bottom: 1rem;
+        margin-top: 0.5rem;
     }
     &__typeRadio {
         display: flex;
@@ -34,6 +36,10 @@
         padding-right: 1rem;
     }
     &__reg-form {
-        @include flex-column
+        @include flex-column;
+        width: 80%;
+    }
+    &__infoContainer {
+        padding-bottom: 1rem;
     }
 }

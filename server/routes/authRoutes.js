@@ -29,7 +29,7 @@ passport.use('register', new LocalStrategy(
                     return done(null, false, { failure: 'Registration is not complete' });
                 });
         } else {
-            // console.log('the username already exits');
+            console.log('the username already exits');
             return done(null, true, { failure: 'The Username already exists.' });
         }
     }

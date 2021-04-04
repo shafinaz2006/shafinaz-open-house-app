@@ -8,6 +8,12 @@
     width: 10rem;
     padding-left: 1rem;
     margin-left: 1rem;
+    background-image: url("../../assets/icons/arrow_down.svg");
+    background-repeat: no-repeat;
+    $a: 100%;
+    $b: 1rem;
+    background-position-x: calc(#{$a} - #{$b});
+    background-position-y: center;
     &:active,
     &:focus {
         border-radius: 2px;

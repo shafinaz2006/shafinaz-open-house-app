@@ -6,10 +6,18 @@ const utils = require('./util-functions');
 
 router.use(express.json());
 
+// Profile Get Request:
+
+router.get('/', (req, res) =>{
+    const allUserProfiles = utils.getAllUserProfiles();
+    if(allUserProfiles)  res.status(200).send({userProfiles: allUserProfiles} );
+    else res.status(400).send('in Error');
+})
+
 // create Profile Post Request:
 
 router.post('/', (req, res) =>{
-    // console.log('in create-profile', req.body);
+    
     let newData = {
         userId: req.body.userId,
         name: req.body.name,
@@ -26,21 +34,10 @@ router.post('/', (req, res) =>{
     }
     const allUserProfiles = utils.getAllUserProfiles();
     allUserProfiles.push(newData);
-    fs.writeFileSync("./data/userPrifiles.json", JSON.stringify(allUserProfiles));
+    fs.writeFileSync("./data/userProfiles.json", JSON.stringify(allUserProfiles));
 
-    // const allSellers = utils.getAllSellers();
-    // const allAssociates = utils.getAllAssociates();
-    // if(req.body.type === 'Seller'){
-    //     newData.type = 'seller';
-    //     allSellers.push(newData);
-    //     fs.writeFileSync("./Data/seller.json", JSON.stringify(allSellers));
-    // }else {
-    //     newData.profession= req.body.profession;
-    //     newData.refereeName= req.body.refereeName;
-    //     newData.refereePhone= req.body.refereePhone;
-    //     allAssociates.push(newData);
-    //     fs.writeFileSync("./Data/associates.json", JSON.stringify(allAssociates));
-    // }
+    let allSellers = utils.getAllSellers();
+    let allAssociates = utils.getAllAssociates();
     if(allUserProfiles)  res.status(200).send({userProfiles: allUserProfiles, sellers: allSellers, associates: allAssociates} );
     else res.status(400).send('in Error');
 })

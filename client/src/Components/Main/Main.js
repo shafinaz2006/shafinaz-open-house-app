@@ -8,8 +8,8 @@ import Authentication from '../Authentication/Authentication';
 import Register from '../Authentication/Register';
 import Login from '../Authentication/Login';
 import Logout from '../Authentication/Logout';
-import CreateProfile from '../CreateProfile/CreateProfile';
-import ViewProfile from '../ViewProfile/ViewProfile';
+import CreateProfile from '../Profile/CreateProfile';
+import Profile from '../Profile/Profile';
 import PropertiesList from '../PropertiesList/PropertiesList';
 import UserPropertiesList from '../PropertiesList/UserPropertiesList';
 import PropertyDetails from '../PropertyDetails/PropertyDetails';
@@ -28,9 +28,11 @@ class Main extends React.Component {
 
     state = {
         properties: '',
+        allUserProfiles: '',
+        sellers: '',
         associates: '',
         userProperties: '',
-        sellers: '',
+        
         errorMessageReg:'',
         errorMessageLogin: '',
         errorMessageCreateProfile: '',
@@ -88,6 +90,16 @@ class Main extends React.Component {
             });
     }
 
+// Get all user profiles:
+
+    getAllUserProfiles = () =>{
+        axios
+            .get('http://localhost:8080/profile')
+            .then(response => {
+                this.setState({allUserProfiles: response.data.userProfiles, sellers: response.data.sellers, associates: response.data.associates});
+            })
+            .catch(error => console.log('Error in all user profiles data', error))
+    }
 
 // Handle Create Profile:
 
@@ -97,7 +109,7 @@ class Main extends React.Component {
             .post('http://localhost:8080/profile', newProfile)
             .then(response =>{
                 console.log(response.data);
-                this.setState({sellers: response.data.sellers, associates: response.data.associates});
+                this.setState({allUserProfiles: response.data.userProfiles, sellers: response.data.sellers, associates: response.data.associates});
 
             })
             .catch(error => console.log('Error to create profile', error));
@@ -196,14 +208,16 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.getPropertiesData();
+        this.getAllUserProfiles();
         this.getAssociatesData();
-        this.getUserPropertiesData();
         this.getSellersData();
+        this.getUserPropertiesData();
+        
     }
     
     render(){
         console.log('username in cookies-', Cookies.get('username'));
-        if(this.state.properties && this.state.associates){
+        if(this.state.properties && this.state.allUserProfiles){
             return (
                 <main className='pageContainer'>
                     <LeftBar className='pageContainer__list' />
@@ -232,13 +246,12 @@ class Main extends React.Component {
                                  render={(routerProps) =>{
                                     return <CreateProfile errorMsg={this.state.errorMessageCreateProfile} currentUserId={this.state.currentUserId}
                                                      handleCreateProfile={this.handleCreateProfile} 
-                                                     sellers={this.state.sellers} associates={this.state.associates}{...routerProps}/>
+                                                     allUserProfiles={this.state.allUserProfiles}{...routerProps}{...routerProps}/>
                                 }}
                                 />
-                                <Route path='/users/:userId/view-profile' exact 
+                                <Route path='/users/:userId/profile' exact 
                                         render={(routerProps) =>{
-                                            return <ViewProfile sellers={this.state.sellers} associates={this.state.associates}
-                                             {...routerProps}/>
+                                            return <Profile allUserProfiles={this.state.allUserProfiles}{...routerProps}/>
                                         }}
                                 />
                                 <Route path='/users/:userId/properties' exact 
@@ -300,6 +313,7 @@ class Main extends React.Component {
                                 />
                                 <Route path='/buyer-checklist' exact component={BuyerChecklist}/>
                                 <Route path='/seller-checklist' exact component={SellerChecklist}/>
+                                <Route path='*' exact component={TestComponent}/>
                             </Switch>
                         </BrowserRouter>
                     </div>

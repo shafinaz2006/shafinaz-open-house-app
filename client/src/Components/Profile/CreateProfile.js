@@ -139,10 +139,10 @@ class CreateProfile extends React.Component {
 
     checkProfileCreated = () => {
         let userId = this.props.match.params.userId;
-        let inSeller = this.props.sellers.find(seller => seller.userId === userId);
-        let inAssociate = this.props.associates.find(associate => associate.userId === userId);
-        if (inSeller || inAssociate) return true;
-        else return false;
+        let user;
+        let userProfile =  this.props.allUserProfiles.find(user => user.userId === userId)
+        if(userProfile) user = {...userProfile};
+        return user;
     }
 
     render() {
@@ -153,17 +153,18 @@ class CreateProfile extends React.Component {
                 {!cookieName ?
                     <div className='createProfile__section createProfile__formSubmitted'>
                         <h3 className="createProfile__heading createProfile__heading--status"> Please login to create profile.</h3>
-                        <a href='/login' className="link button button--auth">Login</a>
+                        <a href='/login' className="link button">Login</a>
                     </div> : ''
                 }
                 {(this.state.isFormSubmitted || this.checkProfileCreated()) ?
                     <div className='createProfile__formSubmitted'>
-                        <h3 className="createProfile__heading"> Your profile is created!!</h3>
-                        <a href={`/users/${Cookies.get('userId')}/view-profile`} className="link button button--auth">View Profile</a>
+                        <h3 className="createProfile__heading createProfile__heading--status"> Your profile is created!!</h3>
+                        <a href={`/users/${Cookies.get('userId')}/profile`} className="link button">View Profile</a>
                     </div> :
                     <div className='createProfile__section'>
                         <h3 className='createProfile__heading'>Complete your profile</h3>
                         <form className='createProfile__reg-form' onSubmit={(event) => this.handleSubmit(event)}>
+                            <div className='createProfile__infoContainer'>
                             <label className='input-label' htmlFor='firstName'>First Name:
                             <input type='text' name='firstName' id='firstName' className='input' placeholder='first name' onChange={this.handleChange} />
                                 {this.state.firstNameError ? this.Alert() : ''}
@@ -201,8 +202,9 @@ class CreateProfile extends React.Component {
                                     <label htmlFor='type-associate' className='input-label input-label--radio'>Associate </label>
                                 </div>
                             </div>
+                            </div>
                             {this.state.type === 'Associate' ?
-                                <div className='createProfile__associateDiv'>
+                                <div className='createProfile__infoContainer'>
                                     <label htmlFor='profession' className='input-label'>Profession: </label>
                                     <select name='profession' id='profession'
                                         className='select'
@@ -228,7 +230,7 @@ class CreateProfile extends React.Component {
                                     </label>
                                 </div> : ''
                             }
-                            <input className='button button--register' type='submit' value='Create Profile' />
+                            <input className='button button--alignEnd' type='submit' value='Create Profile' />
                         </form>
                     </div>
                 }
