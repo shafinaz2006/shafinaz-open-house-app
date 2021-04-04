@@ -61,7 +61,7 @@ router.post('/', (req, res) =>{
     // console.log('userid in post property, ', req.body.sellerId);
     let allSellers = utils.getAllSellers();
     let sellerInfo = allSellers.find(user => user.userId === req.body.sellerId);
-    if(sellerInfo){   newProperty.seller = {name: sellerInfo.name, phone: sellerInfo.phone, email: sellerInfo.email}}
+    if(sellerInfo){   newProperty.seller = {userId: sellerInfo.userId, name: sellerInfo.name, phone: sellerInfo.phone, email: sellerInfo.email}}
     else {
         let allUsers = utils.getAllUser();
         let userInfo = allUsers.find(user => user.userId === req.body.sellerId);
@@ -69,16 +69,13 @@ router.post('/', (req, res) =>{
         if(!userInfo){   newProperty.user ={userId: req.body.sellerId}}
         else { newProperty.seller = {userId: req.body.sellerId, name: userInfo.username}}
     }
-    // console.log('newData before adding to file', newProperty) 
+    console.log('newData before adding to file', newProperty) 
     let propertiesData = utils.getAllProperties();
     propertiesData.unshift(newProperty);
     fs.writeFileSync("./data/properties.json", JSON.stringify(propertiesData));
     if(newProperty) res.send('new property');
     else res.status(400).send('Error in new Property data');
 })
-
-
-
 
 
 module.exports = router;

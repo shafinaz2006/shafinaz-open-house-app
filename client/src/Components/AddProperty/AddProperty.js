@@ -13,20 +13,12 @@ class AddProperty extends React.Component {
 
         streetError: false, cityError: false,
         descriptionError: false, askingPriceError: false,
-
         isValidPrice: true, isValid: true, isFormSubmitted: false,
 
     }
     // Alert div after validation:
 
     Alert = () => <div className='input--errorContainer'>
-        <img src={errorIcon} alt="error" className='input--error-img' />
-        <span className='input--error-msg'>This field is required </span>
-    </div>
-
-    // Alert div (invisible)
-
-    AlertInvisible = () => <div className='input--errorContainer-invisible'>
         <img src={errorIcon} alt="error" className='input--error-img' />
         <span className='input--error-msg'>This field is required </span>
     </div>
@@ -42,7 +34,6 @@ class AddProperty extends React.Component {
 
     checkAskingPrice = () => {
         let priceRegex = /^[0-9]*$/;
-
         if (this.state.askingPrice.match(priceRegex)) {
             this.setState({ isValidPrice: true });
             return true;
@@ -52,20 +43,7 @@ class AddProperty extends React.Component {
             return false;
         }
     }
-    // Form validation:
 
-    isFormValid = () => {
-        this.checkAskingPrice();
-        if (this.state.streetError || this.state.cityError ||
-            this.state.descriptionError || this.state.askingPriceError || !this.checkAskingPrice()) {
-            this.setState({ isValid: false });
-            return false;
-        }
-        else {
-            this.setState({ isValid: true });
-            return true;
-        }
-    }
     // handle onChange:
 
     handleChange = (event) => {
@@ -81,6 +59,28 @@ class AddProperty extends React.Component {
         console.log(event.target.files);
         this.setState({ selectedImage: event.target.files });
     }
+
+    // Form validation:
+
+    isFormValid = () => {
+        this.checkAskingPrice();
+        if(!this.state.street) this.setState({streetError: true});
+        if(!this.state.city) this.setState({cityError: true});
+        if(!this.state.description) this.setState({descriptionError: true});
+        if(!this.state.askingPrice) this.setState({askingPriceError: true});
+
+        if (!this.state.street || this.state.streetError || !this.state.city || this.state.cityError ||
+            !this.state.description || this.state.descriptionError || !this.state.askingPrice || this.state.askingPriceError
+            || !this.checkAskingPrice()) {
+            // this.setState({ isValid: false });
+            return false;
+        }
+        else {
+            // this.setState({ isValid: true });
+            return true;
+        }
+    }
+
 
     // Form Submit:
 
@@ -111,58 +111,55 @@ class AddProperty extends React.Component {
         let cookieName = Cookies.get('username');
         return (
             <section className='addProperty'>
-                {!cookieName ? <h1>Login</h1> :
+                {this.state.isFormSubmitted ?
+                    <div className='addProperty__formSubmitted'>
+                        <h3 className="addProperty__heading addProperty__heading--status"> Thank you!!! Your property is added!!</h3>
+                        <a href='/home' className="link button button--auth">Home</a>
+                    </div> :
                     <div>
-                        {this.state.isFormSubmitted ?
-                            <div className='addProperty__formSubmitted'>
-                                <h3 className="addProperty__heading addProperty__heading--status"> Thank you!!! Your property is added!!</h3>
-                                <a href='/home' className="link button button--auth">Home</a>
-                            </div> : <div>
-                                <h3 className='addProperty__heading'>Add new property</h3>
-                                <form onSubmit={this.handleFormSubmit} className='addProperty__formSubmitted'>
-                                    <label className='input-label'> Address: </label>
-                                    <label className='input-label'>Street:
+                        <h3 className='addProperty__heading'>Add new property</h3>
+                        <form onSubmit={this.handleFormSubmit} className='addProperty__formSubmitted'>
+                            <label className='input-label'> Address: </label>
+                            <label className='input-label'>Street:
                                         <input type='text' name='street' className='input' placeholder='street' onChange={this.handleChange} />
-                                            {this.state.streetError ? this.Alert() : ''}
-                                    </label>
-                                    <label htmlFor='city' className='input-label'>City:
+                                {this.state.streetError ? this.Alert() : ''}
+                            </label>
+                            <label htmlFor='city' className='input-label'>City:
                                         <input type='text' name='city' id='city' placeholder='city'
-                                            className='input' onChange={this.handleChange} />
-                                        {this.state.cityError ? this.Alert() : ''}
-                                    </label>
-                                    <div className='addProperty__roomWashroomContainer'>
-                                        <label htmlFor='rooms' className='input-label addProperty__room'>Rooms:
+                                    className='input' onChange={this.handleChange} />
+                                {this.state.cityError ? this.Alert() : ''}
+                            </label>
+                            <div className='addProperty__roomWashroomContainer'>
+                                <label htmlFor='rooms' className='input-label addProperty__room'>Rooms:
                                             <input type='number' name='rooms' id='rooms' className='input' min='1'
-                                                placeholder='1' onChange={this.handleChange} />
-                                        </label>
-                                        <label htmlFor='washrooms' className='input-label addProperty__room'>Washrooms:
+                                        placeholder='1' onChange={this.handleChange} />
+                                </label>
+                                <label htmlFor='washrooms' className='input-label addProperty__room'>Washrooms:
                                             <input type='number' name='washrooms' id='washrooms' className='input'
-                                                min='1' placeholder='1' onChange={this.handleChange} />
-                                        </label>
-                                    </div>
-                                    <label htmlFor='description' className='input-label'>Description:
-                                        <input type='text' name='description' id='description' className='input'
-                                            placeholder='description' onChange={this.handleChange} />
-                                        {this.state.descriptionError ? this.Alert() : ''}
-                                    </label>
-                                    <label htmlFor='recentUpgrade' className='input-label'>Recent Upgrade:
-                                        <input type='text' name='recentUpgrade' id='recentUpgrade' className='input'
-                                            placeholder='recent upgrade' onChange={this.handleChange} />
-                                    </label>
-                                    <label htmlFor='askingPrice' className='input-label'>Asking Price:
-                                        <input type='text' name='askingPrice' id='askingPrice' className='input'
-                                            placeholder='100000' onChange={this.handleChange} />
-                                        {this.state.askingPriceError ? this.Alert() : ''}
-                                        {this.state.isValidPrice ? '' : this.AlertAskingPrice()}
-                                    </label>
-                                    
-                                    <label className='input-label input-label--image'>Image:
-                                        <input type='file' name='image' multiple onChange={this.imageInputHandler} className='input--image' />
-                                    </label>
-                                    <input type='submit' className='button button--register' value='Submit' />
-                                </form>
+                                        min='1' placeholder='1' onChange={this.handleChange} />
+                                </label>
                             </div>
-                        }
+                            <label htmlFor='description' className='input-label'>Description:
+                                        <input type='text' name='description' id='description' className='input'
+                                    placeholder='description' onChange={this.handleChange} />
+                                {this.state.descriptionError ? this.Alert() : ''}
+                            </label>
+                            <label htmlFor='recentUpgrade' className='input-label'>Recent Upgrade:
+                                        <input type='text' name='recentUpgrade' id='recentUpgrade' className='input'
+                                    placeholder='recent upgrade' onChange={this.handleChange} />
+                            </label>
+                            <label htmlFor='askingPrice' className='input-label'>Asking Price:
+                                        <input type='text' name='askingPrice' id='askingPrice' className='input'
+                                    placeholder='100000' onChange={this.handleChange} />
+                                {this.state.askingPriceError ? this.Alert() : ''}
+                                {this.state.isValidPrice ? '' : this.AlertAskingPrice()}
+                            </label>
+
+                            <label className='input-label input-label--image'>Image:
+                                        <input type='file' name='image' multiple onChange={this.imageInputHandler} className='input--image' />
+                            </label>
+                            <input type='submit' className='button button--register' value='Submit' />
+                        </form>
                     </div>
                 }
             </section>
