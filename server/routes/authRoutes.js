@@ -15,7 +15,6 @@ passport.use('register', new LocalStrategy(
     function (username, password, done) {
         let allUser = utils.getAllUser();
         let user = allUser.find(user => user.username.toLowerCase() === username.toLowerCase());
-        // console.log(user);
         if (!user) {
             bcrypt
                 .hash(password, 12)
@@ -57,7 +56,6 @@ passport.use('login', new LocalStrategy(
         }
     }
 ));
-
 
 // Registration Post Request: 
 

@@ -33,14 +33,5 @@ module.exports = {
         const parsedData = JSON.parse(allProperties);
         return parsedData;
     },
-
-    isloggedIn: (req, res, next) =>{
-        console.log('inside isLoggedin func', req.user);
-        if(!req.isAuthenticated()){
-            return res.redirect('/authentication');
-        }
-        next();
-    
-    }
 }
 

@@ -84,15 +84,9 @@ class UpdateProperty extends React.Component {
 
     deleteImage = (event,i) =>{
         event.preventDefault();
-        console.log('inside deleteImage ', i);
-        console.log(event.target);
         let imageCol = this.state.updatedImageCol; 
-        console.log(imageCol, i)
         imageCol.splice(i, 1);
-        console.log(imageCol);
-        
         this.setState({updatedImageCol: imageCol});
-        console.log(this.state.updatedImageCol);
     }
     // Form Submit:
 
@@ -109,7 +103,11 @@ class UpdateProperty extends React.Component {
             newData.append('description', this.state.description);
             newData.append('recentUpgrade', this.state.recentUpgrade);
             newData.append('askingPrice', this.state.askingPrice);
-            newData.append('newImageCol', this.state.updatedImageCol);
+            if(this.state.updatedImageCol.length){
+                for (let i = 0; i < this.state.updatedImageCol.length; i++) {
+                    newData.append('newImageCol', this.state.updatedImageCol[i]);
+                }
+            }
             if (this.state.selectedImage.length) {
                 for (let i = 0; i < this.state.selectedImage.length; i++) {
                     newData.append('image', this.state.selectedImage[i]);
@@ -122,12 +120,12 @@ class UpdateProperty extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <section className='addProperty'>
                 {this.state.isFormSubmitted ?
                     <div className='addProperty__section addProperty__formSubmitted--status'>
-                        <h3 className="addProperty__heading addProperty__heading--status"> Thank you!!! Your property is Updated!!</h3>
+                        <h3 className="addProperty__heading addProperty__heading--status"> Your property is Updated!!</h3>
                         <a href='/home' className="link button button--auth">Home</a>
                     </div> :
                     <div className='addProperty__section'>
@@ -170,8 +168,8 @@ class UpdateProperty extends React.Component {
                             </label>
                             <div className='updateProperty__imgGroup'>
                             {this.props.property.images.map((image, i) =>{
-                                return (<div key={i} className='updateProperty__imgWithCross'onClick={(event) =>{this.deleteImage(event, i)} }><img  className='updateProperty__img' src={image} alt='savedPic'/>
-                                        <img className='updateProperty__imgCross' src={cross} alt='cross' 
+                                return (<div key={i} className='updateProperty__imgWithCross'><img  className='updateProperty__img' src={image} alt='savedPic'/>
+                                        <img className='updateProperty__imgCross' onClick={(event) =>{this.deleteImage(event, i)}} src={cross} alt='cross' 
                                             /></div>)
                             })}
                             </div>

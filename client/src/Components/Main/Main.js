@@ -90,16 +90,6 @@ class Main extends React.Component {
             });
     }
 
-// Get all user profiles:
-
-    getAllUserProfiles = () =>{
-        axios
-            .get('http://localhost:8080/profile')
-            .then(response => {
-                this.setState({allUserProfiles: response.data.userProfiles, sellers: response.data.sellers, associates: response.data.associates});
-            })
-            .catch(error => console.log('Error in all user profiles data', error))
-    }
 
 // Handle Create Profile:
 
@@ -114,29 +104,18 @@ class Main extends React.Component {
             })
             .catch(error => console.log('Error to create profile', error));
     }
-// Get all properties data:
 
-    getPropertiesData = () =>{
+
+// Get all user profiles:
+
+    getAllUserProfiles = () =>{
         axios
-            .get('http://localhost:8080/properties', { withCredentials: true })
+            .get('http://localhost:8080/profile')
             .then(response => {
-                // console.log(response.data);
-                this.setState({properties: response.data});
+                this.setState({allUserProfiles: response.data.userProfiles, sellers: response.data.sellers, associates: response.data.associates});
             })
-            .catch(error => console.log('Error in properties data', error))
+            .catch(error => console.log('Error in all user profiles data', error))
     }
-
-// Get user properties data:
-    getUserPropertiesData = () =>{
-        axios
-            .get(`http://localhost:8080/users/${Cookies.get('userId')}/properties`, { withCredentials: true })
-            .then(response => {
-                // console.log(response.data);
-                this.setState({userProperties: response.data});
-            })
-            .catch(error => console.log('Error in properties data', error))
-    }
-
 
 
 // Get all associates data:
@@ -163,14 +142,38 @@ class Main extends React.Component {
     }
 
 
+// Get all properties data:
+
+    getPropertiesData = () =>{
+        axios
+            .get('http://localhost:8080/properties', { withCredentials: true })
+            .then(response => {
+                // console.log(response.data);
+                this.setState({properties: response.data});
+            })
+            .catch(error => console.log('Error in properties data', error))
+    }
+
+// Get user properties data:
+
+    getUserPropertiesData = () =>{
+        axios
+            .get(`http://localhost:8080/users/${Cookies.get('userId')}/properties`, { withCredentials: true })
+            .then(response => {
+                // console.log(response.data);
+                this.setState({userProperties: response.data});
+            })
+            .catch(error => console.log('Error in properties data', error))
+    }
+
 // Post new property:
 
-    addProperty = (newData) =>{
-        console.log(newData);
+    addProperty = (newProperty) =>{
+        console.log(newProperty);
         axios
-            .post('http://localhost:8080/properties', newData)
+            .post(`http://localhost:8080/users/${Cookies.get('userId')}/properties`, newProperty)
             .then(response =>{
-                console.log(response.data);
+                this.setState({properties: response.data.properties, userProperties: response.data.userProperties});
             })
             .catch(error => console.log('Error in add new property', error));
     }
@@ -182,7 +185,7 @@ class Main extends React.Component {
         axios
             .put(`http://localhost:8080/users/${Cookies.get('userId')}/properties/${propertyId}/edit`, propertyData)
             .then(response =>{
-                console.log(response.data);
+                this.setState({properties: response.data.properties, userProperties: response.data.userProperties});
             })
             .catch(error => console.log('Error in add new property', error));
     }
@@ -194,8 +197,7 @@ class Main extends React.Component {
         axios
             .delete(deleteURL)
             .then(response => {
-                console.log('Property Deleted. Response status from delele request', response.status);
-                // console.log('in delete property response', response.data.properties)
+                // console.log('Property Deleted. Response status from delele request', response.status);
                 this.setState({properties: response.data.properties, userProperties: response.data.userProperties});
                 
             })
@@ -208,15 +210,14 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.getPropertiesData();
+        this.getUserPropertiesData();
         this.getAllUserProfiles();
         this.getAssociatesData();
-        this.getSellersData();
-        this.getUserPropertiesData();
-        
+        this.getSellersData(); 
     }
     
     render(){
-        console.log('username in cookies-', Cookies.get('username'));
+        // console.log('username in cookies-', Cookies.get('username'));
         if(this.state.properties && this.state.allUserProfiles){
             return (
                 <main className='pageContainer'>
@@ -319,7 +320,7 @@ class Main extends React.Component {
                     </div>
                 </main>
             );
-        } else   return( <main>Page loading</main> )
+        } else   return( <main style={{textAlign: 'center'}}><h1>Page loading</h1></main> )
     }
 }
 
