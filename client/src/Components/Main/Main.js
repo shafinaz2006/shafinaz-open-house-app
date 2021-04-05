@@ -68,7 +68,7 @@ class Main extends React.Component {
 // Handle Login:
 
     handleLogin = (user) =>{
-        console.log('in handleLogin method', user);
+        // console.log('in handleLogin method', user);
         axios
             .post('http://localhost:8080/login', {username: user.username, password: user.password}, {withCredentials: true})
             .then(response =>{
@@ -218,7 +218,9 @@ class Main extends React.Component {
     
     render(){
         // console.log('username in cookies-', Cookies.get('username'));
-        if(this.state.properties && this.state.allUserProfiles){
+        if(this.state.properties && this.state.allUserProfiles ){
+            // && this.state.userProperties
+            // && this.state.associates && this.state.sellers){
             return (
                 <main className='pageContainer'>
                     <LeftBar className='pageContainer__list' />

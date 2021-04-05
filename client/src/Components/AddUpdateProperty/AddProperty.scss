@@ -41,6 +41,7 @@
     &__imgGroup {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         margin-bottom: 0.5rem;
     }
     &__img {

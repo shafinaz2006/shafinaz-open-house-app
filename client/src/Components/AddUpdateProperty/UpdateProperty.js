@@ -1,5 +1,4 @@
 import React from 'react';
-import Cookies from 'js-cookie';
 import errorIcon from '../../assets/icons/error.svg';
 import cross from '../../assets/icons/cross.svg';
 import './AddProperty.scss';

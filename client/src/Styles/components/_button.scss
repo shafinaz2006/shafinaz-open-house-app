@@ -68,4 +68,16 @@
         margin-right: 2rem;
         margin-bottom: 1rem;
     }
+    &--msgCancel {
+        background-color: white;
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: white;
+        }
+    }
+    &--message-send {
+        margin-top: 0.5rem;
+        align-self: flex-end;
+    }
 }
