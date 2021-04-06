@@ -64,10 +64,10 @@ class UpdateProperty extends React.Component {
 
     isFormValid = () => {
         this.checkAskingPrice();
-        if(!this.state.street) this.setState({streetError: true});
-        if(!this.state.city) this.setState({cityError: true});
-        if(!this.state.description) this.setState({descriptionError: true});
-        if(!this.state.askingPrice) this.setState({askingPriceError: true});
+        if (!this.state.street) this.setState({ streetError: true });
+        if (!this.state.city) this.setState({ cityError: true });
+        if (!this.state.description) this.setState({ descriptionError: true });
+        if (!this.state.askingPrice) this.setState({ askingPriceError: true });
 
         if (!this.state.street || this.state.streetError || !this.state.city || this.state.cityError ||
             !this.state.description || this.state.descriptionError || !this.state.askingPrice || this.state.askingPriceError
@@ -81,11 +81,11 @@ class UpdateProperty extends React.Component {
         }
     }
 
-    deleteImage = (event,i) =>{
+    deleteImage = (event, i) => {
         event.preventDefault();
-        let imageCol = this.state.updatedImageCol; 
+        let imageCol = this.state.updatedImageCol;
         imageCol.splice(i, 1);
-        this.setState({updatedImageCol: imageCol});
+        this.setState({ updatedImageCol: imageCol });
     }
     // Form Submit:
 
@@ -102,7 +102,7 @@ class UpdateProperty extends React.Component {
             newData.append('description', this.state.description);
             newData.append('recentUpgrade', this.state.recentUpgrade);
             newData.append('askingPrice', this.state.askingPrice);
-            if(this.state.updatedImageCol.length){
+            if (this.state.updatedImageCol.length) {
                 for (let i = 0; i < this.state.updatedImageCol.length; i++) {
                     newData.append('newImageCol', this.state.updatedImageCol[i]);
                 }
@@ -114,73 +114,78 @@ class UpdateProperty extends React.Component {
             }
             newData.append('sellerId', this.props.match.params.userId);
             // console.log('client side new property data', newData);
-            this.props.handleUpdateProperty(newData, this.props.property.propertyId );
+            this.props.handleUpdateProperty(newData, this.props.property.propertyId);
         }
     }
 
     render() {
-        // console.log(this.props);
-        return (
-            <section className='addProperty'>
-                {this.state.isFormSubmitted ?
-                    <div className='addProperty__section addProperty__formSubmitted--status'>
-                        <h3 className="addProperty__heading addProperty__heading--status"> Your property is Updated!!</h3>
-                        <a href='/home' className="link button button--auth">Home</a>
-                    </div> :
-                    <div className='addProperty__section'>
-                        <h3 className='addProperty__heading'>Edit your property</h3>
-                        <form onSubmit={this.handleFormSubmit} className='addProperty__formSubmitted'>
-                            <label className='input-label'> Address: </label>
-                            <label className='input-label'>Street:
+        if (this.props.property) {
+            return (
+                <section className='addProperty'>
+                    {this.state.isFormSubmitted ?
+                        <div className='addProperty__section addProperty__formSubmitted--status'>
+                            <h3 className="addProperty__heading addProperty__heading--status"> Your property is Updated!!</h3>
+                            <a href='/home' className="link button button--auth">Home</a>
+                        </div> :
+                        <div className='addProperty__section'>
+                            <h3 className='addProperty__heading'>Edit your property</h3>
+                            <form onSubmit={this.handleFormSubmit} className='addProperty__formSubmitted'>
+                                <label className='input-label'> Address: </label>
+                                <label className='input-label'>Street:
                                         <input type='text' name='street' className='input' defaultValue={this.props.property.address.street} onChange={this.handleChange} />
-                                {this.state.streetError ? this.Alert() : ''}
-                            </label>
-                            <label htmlFor='city' className='input-label'>City:
+                                    {this.state.streetError ? this.Alert() : ''}
+                                </label>
+                                <label htmlFor='city' className='input-label'>City:
                                         <input type='text' name='city' id='city' defaultValue={this.props.property.address.city}
-                                    className='input' onChange={this.handleChange} />
-                                {this.state.cityError ? this.Alert() : ''}
-                            </label>
-                            <div className='addProperty__roomWashroomContainer'>
-                                <label htmlFor='rooms' className='input-label addProperty__room'>Rooms:
+                                        className='input' onChange={this.handleChange} />
+                                    {this.state.cityError ? this.Alert() : ''}
+                                </label>
+                                <div className='addProperty__roomWashroomContainer'>
+                                    <label htmlFor='rooms' className='input-label addProperty__room'>Rooms:
                                             <input type='number' name='rooms' id='rooms' className='input' min='1'
-                                        defaultValue={this.props.property.rooms} onChange={this.handleChange} />
-                                </label>
-                                <label htmlFor='washrooms' className='input-label addProperty__room'>Washrooms:
+                                            defaultValue={this.props.property.rooms} onChange={this.handleChange} />
+                                    </label>
+                                    <label htmlFor='washrooms' className='input-label addProperty__room'>Washrooms:
                                             <input type='number' name='washrooms' id='washrooms' className='input'
-                                        min='1' defaultValue={this.props.property.washrooms} onChange={this.handleChange} />
-                                </label>
-                            </div>
-                            <label htmlFor='description' className='input-label'>Description:
+                                            min='1' defaultValue={this.props.property.washrooms} onChange={this.handleChange} />
+                                    </label>
+                                </div>
+                                <label htmlFor='description' className='input-label'>Description:
                                         <input type='text' name='description' id='description' className='input'
-                                    defaultValue={this.props.property.description} onChange={this.handleChange} />
-                                {this.state.descriptionError ? this.Alert() : ''}
-                            </label>
-                            <label htmlFor='recentUpgrade' className='input-label'>Recent Upgrade:
+                                        defaultValue={this.props.property.description} onChange={this.handleChange} />
+                                    {this.state.descriptionError ? this.Alert() : ''}
+                                </label>
+                                <label htmlFor='recentUpgrade' className='input-label'>Recent Upgrade:
                                         <input type='text' name='recentUpgrade' id='recentUpgrade' className='input'
-                                    defaultValue={this.props.property.recentUpgrade} onChange={this.handleChange} />
-                            </label>
-                            <label htmlFor='askingPrice' className='input-label'>Asking Price:
+                                        defaultValue={this.props.property.recentUpgrade} onChange={this.handleChange} />
+                                </label>
+                                <label htmlFor='askingPrice' className='input-label'>Asking Price:
                                         <input type='text' name='askingPrice' id='askingPrice' className='input'
-                                    defaultValue={this.state.askingPrice} onChange={this.handleChange} />
-                                {this.state.askingPriceError ? this.Alert() : ''}
-                                {this.state.isValidPrice ? '' : this.AlertAskingPrice()}
-                            </label>
-                            <div className='updateProperty__imgGroup'>
-                            {this.props.property.images.map((image, i) =>{
-                                return (<div key={i} className='updateProperty__imgWithCross'><img  className='updateProperty__img' src={image} alt='savedPic'/>
-                                        <img className='updateProperty__imgCross' onClick={(event) =>{this.deleteImage(event, i)}} src={cross} alt='cross' 
+                                        defaultValue={this.state.askingPrice} onChange={this.handleChange} />
+                                    {this.state.askingPriceError ? this.Alert() : ''}
+                                    {this.state.isValidPrice ? '' : this.AlertAskingPrice()}
+                                </label>
+                                <div className='updateProperty__imgGroup'>
+                                    {this.props.property.images.map((image, i) => {
+                                        return (<div key={i} className='updateProperty__imgWithCross'><img className='updateProperty__img' src={image} alt='savedPic' />
+                                            <img className='updateProperty__imgCross' onClick={(event) => { this.deleteImage(event, i) }} src={cross} alt='cross'
                                             /></div>)
-                            })}
-                            </div>
-                            <label className='input-label input-label--image'>Image:
+                                    })}
+                                </div>
+                                <label className='input-label input-label--image'>Image:
                                         <input type='file' name='image' multiple onChange={this.imageInputHandler} className='input--image' />
-                            </label>
-                            <input type='submit' className='button button--register' value='Update' />
-                        </form>
-                    </div>
-                }
-            </section>
-        )
+                                </label>
+                                <input type='submit' className='button button--register' value='Update' />
+                            </form>
+                        </div>
+                    }
+                </section>
+            )
+        } else {
+            return (
+                <section style={{ textAlign: 'center' }}><h1>Page loading</h1></section>
+            )
+        }
     }
 }
 export default UpdateProperty;

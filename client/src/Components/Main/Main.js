@@ -213,7 +213,7 @@ class Main extends React.Component {
     }
     // console.log()
     render(){
-        if(this.getAllUserProfiles()){
+        if(this.state.allUserProfiles && this.state.properties && this.state.associates){
             return (
                 <main className='pageContainer'>
                     <LeftBar className='pageContainer__list' />
@@ -236,7 +236,7 @@ class Main extends React.Component {
                                 }}
                                 />
                                 <Route path='/logout' exact 
-                                    render={(routerProps) =>{ return <Logout handleLogout={this.handleLogout} {...routerProps}/>}}
+                                    render={(routerProps) =>{ return <Logout handleLogout={this.handleLogout}{...routerProps}/>}}
                                 />
                                  <Route path='/users/:userId/create-profile' exact 
                                  render={(routerProps) =>{
@@ -249,6 +249,11 @@ class Main extends React.Component {
                                         render={(routerProps) =>{
                                             return <Profile allUserProfiles={this.state.allUserProfiles}{...routerProps}/>
                                         }}
+                                />
+                                <Route path='/users/:userId/properties/add-property' exact
+                                    render={(routerProps) =>{
+                                        return <AddProperty handleAddProperty ={this.addProperty} {...routerProps}/>
+                                    }}
                                 />
                                 <Route path='/users/:userId/properties' exact 
                                         render={(routerProps) =>{
@@ -278,16 +283,7 @@ class Main extends React.Component {
                                         return <PropertiesList properties={this.state.properties} {...routerProps}/>
                                     }}
                                 />
-                                <Route path='/properties' exact
-                                    render={(routerProps) =>{
-                                        return <PropertiesList properties={this.state.properties} {...routerProps}/>
-                                    }}
-                                />
-                                <Route path='/properties/add-property' exact
-                                    render={(routerProps) =>{
-                                        return <AddProperty handleAddProperty ={this.addProperty} {...routerProps}/>
-                                    }}
-                                />
+                                
                                 <Route path='/properties/:propertyId' exact
                                     render={(routerProps) =>{
                                         return <PropertyDetails property=

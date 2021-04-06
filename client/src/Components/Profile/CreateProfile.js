@@ -21,27 +21,27 @@ class CreateProfile extends React.Component {
         isFormSubmitted: false,
     }
 
-// Alert div after validation:
+    // Alert div after validation:
 
     Alert = () => <div className='input--errorContainer'>
-                    <img src={errorIcon} alt="error" className='input--error-img' />
-                    <span className='input--error-msg'>This field is required </span>
-                 </div>
+        <img src={errorIcon} alt="error" className='input--error-img' />
+        <span className='input--error-msg'>This field is required </span>
+    </div>
 
 
-// Alert div for phonenumber:
+    // Alert div for phonenumber:
 
     AlertPhoneNumber = () => <div className='input--errorContainer'>
-                                <img src={errorIcon} alt="error" className='input--error-img' />
-                                <span className='input--error-msg'>Required format 1-111-222-3333 </span>
-                            </div>
+        <img src={errorIcon} alt="error" className='input--error-img' />
+        <span className='input--error-msg'>Required format 1-111-222-3333 </span>
+    </div>
 
-// Alert div for email:
+    // Alert div for email:
 
     AlertEmail = () => <div className='input--errorContainer'>
-                            <img src={errorIcon} alt="error" className='input--error-img' />
-                            <span className='input--error-msg'>Enter a valid email </span>
-                        </div>
+        <img src={errorIcon} alt="error" className='input--error-img' />
+        <span className='input--error-msg'>Enter a valid email </span>
+    </div>
 
     // Phone number validation:
 
@@ -103,7 +103,7 @@ class CreateProfile extends React.Component {
         }
     }
 
-// handle onChange:
+    // handle onChange:
 
     handleChange = (event) => {
         let x = event.target.name + 'Error'
@@ -112,7 +112,7 @@ class CreateProfile extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
-// Handle form submit:
+    // Handle form submit:
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -135,107 +135,113 @@ class CreateProfile extends React.Component {
         }
     }
 
-// Check if user already has created the profile:
+    // Check if user already has created the profile:
 
     checkProfileCreated = () => {
         let userId = this.props.match.params.userId;
         let user;
-        let userProfile =  this.props.allUserProfiles.find(user => user.userId === userId)
-        if(userProfile) user = {...userProfile};
+        let userProfile = this.props.allUserProfiles.find(user => user.userId === userId)
+        if (userProfile) user = { ...userProfile };
         return user;
     }
 
     render() {
         let cookieName = Cookies.get('username');
-        console.log(this.checkProfileCreated());
-        return (
-            <section className='createProfile'>
-                {!cookieName ?
-                    <div className='createProfile__section createProfile__formSubmitted'>
-                        <h3 className="createProfile__heading createProfile__heading--status"> Please login to create profile.</h3>
-                        <a href='/login' className="link button">Login</a>
-                    </div> : ''
-                }
-                {(this.state.isFormSubmitted || this.checkProfileCreated()) ?
-                    <div className='createProfile__formSubmitted'>
-                        <h3 className="createProfile__heading createProfile__heading--status"> Your profile is created!!</h3>
-                        <a href={`/users/${Cookies.get('userId')}/profile`} className="link button">View Profile</a>
-                    </div> :
-                    <div className='createProfile__section'>
-                        <h3 className='createProfile__heading'>Complete your profile</h3>
-                        <form className='createProfile__reg-form' onSubmit={(event) => this.handleSubmit(event)}>
-                            <div className='createProfile__infoContainer'>
-                            <label className='input-label' htmlFor='firstName'>First Name:
-                            <input type='text' name='firstName' id='firstName' className='input' placeholder='first name' onChange={this.handleChange} />
-                                {this.state.firstNameError ? this.Alert() : ''}
-                            </label>
-                            <label className='input-label' htmlFor='lastName'>Last Name:
-                                <input type='text' name='lastName' id='lastName' className='input' placeholder='last name' onChange={this.handleChange} />
-                                {this.state.lastNameError ? this.Alert() : ''}
-                            </label>
-                            <label className='input-label' htmlFor='phone'>Phone Number (1-111-222-3333):
-                            <input type='tel' name='phone' id='phone'
-                                    className='input' placeholder='1-111-222-3333' onChange={this.handleChange} />
-                                {this.state.isValidPhone ? '' : this.AlertPhoneNumber()}
-                                {this.state.phoneError ? this.Alert() : ''}
-                            </label>
-                            <label htmlFor='email' className='input-label'>Email:
-                            <input type='text' name='email' id='email'
-                                    className='input' onChange={this.handleChange} />
-                                {this.state.emailError ? this.Alert() : ''}
-                                {this.state.isValidEmail ? '' : this.AlertEmail()}
-                            </label>
-                            <div className='createProfile__type'>
-                                <label className='input-label input-label--radio'>Which type of user?</label>
-                                <div className='createProfile__typeRadio'>
-                                    <input type='radio' name='type' id='type-seller'
-                                        className='radio' value='Seller'
-                                        defaultChecked={this.state.type === 'Seller'} onChange={this.handleChange}
-                                    />
-                                    <label htmlFor='type-seller' className='input-label input-label--radio'>Seller </label>
-                                </div>
-                                <div className='createProfile__typeRadio'>
-                                    <input type='radio' name='type' id='type-associate'
-                                        className='radio' value='Associate'
-                                        defaultChecked={this.state.type !== 'Seller'} onChange={this.handleChange}
-                                    />
-                                    <label htmlFor='type-associate' className='input-label input-label--radio'>Associate </label>
-                                </div>
-                            </div>
-                            </div>
-                            {this.state.type === 'Associate' ?
+        // console.log(this.checkProfileCreated());
+        if (this.props.allUserProfiles) {
+            return (
+                <section className='createProfile'>
+                    {!cookieName ?
+                        <div className='createProfile__section createProfile__formSubmitted'>
+                            <h3 className="createProfile__heading createProfile__heading--status"> Please login to create profile.</h3>
+                            <a href='/login' className="link button">Login</a>
+                        </div> : ''
+                    }
+                    {(this.state.isFormSubmitted || this.checkProfileCreated()) ?
+                        <div className='createProfile__formSubmitted'>
+                            <h3 className="createProfile__heading createProfile__heading--status"> Your profile is created!!</h3>
+                            <a href={`/users/${Cookies.get('userId')}/profile`} className="link button">View Profile</a>
+                        </div> :
+                        <div className='createProfile__section'>
+                            <h3 className='createProfile__heading'>Complete your profile</h3>
+                            <form className='createProfile__reg-form' onSubmit={(event) => this.handleSubmit(event)}>
                                 <div className='createProfile__infoContainer'>
-                                    <label htmlFor='profession' className='input-label'>Profession: </label>
-                                    <select name='profession' id='profession'
-                                        className='select'
-                                        defaultValue={'Handyman'}
-                                        onChange={this.handleChange} >
-                                        {this.state.professionList.map(professionName =>
-                                            <option key={professionName} name={professionName} value={professionName}
-                                                defaultValue={professionName === 'Handyman'}>
-                                                {professionName}
-                                            </option>
-                                        )}
-                                    </select>
-                                    <h3 className='createProfile__heading'>Referee Information: </h3>
-                                    <label className='input-label' htmlFor='refereeName'>Referee Name:
-                                        <input type='text' name='refereeName' id='refereeName' className='input' placeholder='referee name' onChange={this.handleChange} />
-                                        {this.state.refereeNameError ? this.Alert() : ''}
+                                    <label className='input-label' htmlFor='firstName'>First Name:
+                            <input type='text' name='firstName' id='firstName' className='input' placeholder='first name' onChange={this.handleChange} />
+                                        {this.state.firstNameError ? this.Alert() : ''}
                                     </label>
-                                    <label className='input-label' htmlFor='refereePhone'>Referee Phone Number (1-111-222-3333):
-                                <input type='tel' name='refereePhone' id='refereePhone'
+                                    <label className='input-label' htmlFor='lastName'>Last Name:
+                                <input type='text' name='lastName' id='lastName' className='input' placeholder='last name' onChange={this.handleChange} />
+                                        {this.state.lastNameError ? this.Alert() : ''}
+                                    </label>
+                                    <label className='input-label' htmlFor='phone'>Phone Number (1-111-222-3333):
+                            <input type='tel' name='phone' id='phone'
                                             className='input' placeholder='1-111-222-3333' onChange={this.handleChange} />
-                                        {this.state.isValidRefereePhone ? '' : this.AlertPhoneNumber()}
-                                        {this.state.refereePhoneError ? this.Alert() : ''}
+                                        {this.state.isValidPhone ? '' : this.AlertPhoneNumber()}
+                                        {this.state.phoneError ? this.Alert() : ''}
                                     </label>
-                                </div> : ''
-                            }
-                            <input className='button button--alignEnd' type='submit' value='Create Profile' />
-                        </form>
-                    </div>
-                }
-            </section>
-        )
+                                    <label htmlFor='email' className='input-label'>Email:
+                            <input type='text' name='email' id='email'
+                                            className='input' onChange={this.handleChange} />
+                                        {this.state.emailError ? this.Alert() : ''}
+                                        {this.state.isValidEmail ? '' : this.AlertEmail()}
+                                    </label>
+                                    <div className='createProfile__type'>
+                                        <label className='input-label input-label--radio'>Which type of user?</label>
+                                        <div className='createProfile__typeRadio'>
+                                            <input type='radio' name='type' id='type-seller'
+                                                className='radio' value='Seller'
+                                                defaultChecked={this.state.type === 'Seller'} onChange={this.handleChange}
+                                            />
+                                            <label htmlFor='type-seller' className='input-label input-label--radio'>Seller </label>
+                                        </div>
+                                        <div className='createProfile__typeRadio'>
+                                            <input type='radio' name='type' id='type-associate'
+                                                className='radio' value='Associate'
+                                                defaultChecked={this.state.type !== 'Seller'} onChange={this.handleChange}
+                                            />
+                                            <label htmlFor='type-associate' className='input-label input-label--radio'>Associate </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {this.state.type === 'Associate' ?
+                                    <div className='createProfile__infoContainer'>
+                                        <label htmlFor='profession' className='input-label'>Profession: </label>
+                                        <select name='profession' id='profession'
+                                            className='select'
+                                            defaultValue={'Handyman'}
+                                            onChange={this.handleChange} >
+                                            {this.state.professionList.map(professionName =>
+                                                <option key={professionName} name={professionName} value={professionName}
+                                                    defaultValue={professionName === 'Handyman'}>
+                                                    {professionName}
+                                                </option>
+                                            )}
+                                        </select>
+                                        <h3 className='createProfile__heading'>Referee Information: </h3>
+                                        <label className='input-label' htmlFor='refereeName'>Referee Name:
+                                        <input type='text' name='refereeName' id='refereeName' className='input' placeholder='referee name' onChange={this.handleChange} />
+                                            {this.state.refereeNameError ? this.Alert() : ''}
+                                        </label>
+                                        <label className='input-label' htmlFor='refereePhone'>Referee Phone Number (1-111-222-3333):
+                                <input type='tel' name='refereePhone' id='refereePhone'
+                                                className='input' placeholder='1-111-222-3333' onChange={this.handleChange} />
+                                            {this.state.isValidRefereePhone ? '' : this.AlertPhoneNumber()}
+                                            {this.state.refereePhoneError ? this.Alert() : ''}
+                                        </label>
+                                    </div> : ''
+                                }
+                                <input className='button button--alignEnd' type='submit' value='Create Profile' />
+                            </form>
+                        </div>
+                    }
+                </section>
+            )
+        } else {
+            return (
+                <section style={{ textAlign:'center'}}><h1>Page loading</h1></section>
+            )
+        }
     }
 }
 export default CreateProfile;

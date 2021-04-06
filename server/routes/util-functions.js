@@ -15,15 +15,15 @@ module.exports = {
     },
 
     getAllSellers: () =>{
-        const allSeller = fs.readFileSync('./data/userProfiles.json');
-        let parsedData = JSON.parse(allSeller);
+        const allUser = fs.readFileSync('./data/userProfiles.json');
+        let parsedData = JSON.parse(allUser);
         parsedData = parsedData.filter(data => data.type === 'seller')
         return parsedData;
     },
 
     getAllAssociates: () =>{
-        const allAssociates = fs.readFileSync('./data/userProfiles.json');
-        let parsedData = JSON.parse(allAssociates);
+        const allUser = fs.readFileSync('./data/userProfiles.json');
+        let parsedData = JSON.parse(allUser);
         parsedData = parsedData.filter(data => data.type === 'associate')
         return parsedData;
     },
