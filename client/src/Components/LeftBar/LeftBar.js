@@ -18,7 +18,7 @@ function LeftBar() {
                         <li className='leftBar__item'><a href={`/users/${Cookies.get('userId')}/profile`} className='link leftBar__link'>Profile</a></li>
                         <li className='leftBar__item'><a href={`/users/${Cookies.get('userId')}/properties`} className='link leftBar__link'>View your properties</a></li>
                         <li className='leftBar__item'><a href={`/users/${Cookies.get('userId')}/properties/add-property`} className='link leftBar__link'> Add new property </a></li>
-                        <li className='leftBar__item'><a href='/message-box' className='link leftBar__link'> Message Box </a></li>
+                        <li className='leftBar__item'><a href={`/users/${Cookies.get('userId')}/messages`} className='link leftBar__link'> Message Box </a></li>
                     </ul>
                 </> : ''
             }

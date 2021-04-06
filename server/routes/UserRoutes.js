@@ -167,4 +167,33 @@ router.delete('/:userId/properties/:propertyId', (req, res) =>{
     else res.status(400).send('Error in delete Property');
 })
 
+// Message get:
+
+router.get('/:userId/messages', (req, res) =>{
+    let allMessages =  utils.getAllMessages();
+    let userMessages = allMessages.filter(message => message.receiverId === req.params.userId)
+    if(userMessages) res.status(200).send({messages: userMessages});
+    else res.status(400).send('error in message data');
+})
+
+// Message post:
+
+router.post('/:userId/messages', (req, res) =>{
+    let newMessage ={
+        messageId: uuidv4(),
+        senderId: req.params.userId || uuidv4(),
+        senderName: req.body.senderName,
+        receiverId: req.body.receiverId,
+        receiverName: req.body.receiverName,
+        message: req.body.message
+    }
+    // console.log(newMessage)
+    let allMessages =  utils.getAllMessages();
+    allMessages.unshift(newMessage);
+    fs.writeFileSync("./data/messages.json", JSON.stringify(allMessages));
+    if(newMessage) res.send({messages: allMessages});
+    else res.status(400).send('Error in edit Property data');
+
+})
+
 module.exports = router;

@@ -33,5 +33,10 @@ module.exports = {
         const parsedData = JSON.parse(allProperties);
         return parsedData;
     },
+    getAllMessages: () => {
+        const allMessages = fs.readFileSync('./data/messages.json');
+        const parsedData = JSON.parse(allMessages);
+        return parsedData;
+    },
 }
 

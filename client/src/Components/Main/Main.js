@@ -22,6 +22,7 @@ import UpdateProperty from '../AddUpdateProperty/UpdateProperty';
 import BuyerChecklist from '../Checklist/BuyerChecklist';
 import SellerChecklist from '../Checklist/SellerChecklist';
 import DeleteProperty from '../DeleteProperty/DeleteProperty';
+import MessageBox from '../MessageBox/MesssageBox';
 import TestComponent from '../TestComponent';
 import Cookies from 'js-cookie';
 
@@ -33,6 +34,7 @@ class Main extends React.Component {
         sellers: '',
         associates: '',
         userProperties: '',
+        userMessages: '',
         
         errorMessageReg:'',
         errorMessageLogin: '',
@@ -202,6 +204,31 @@ class Main extends React.Component {
             })
     }
 
+// get user Messages: 
+
+    getUserMessages = () =>{
+        axios
+            .get(`${baseURL}/users/${Cookies.get('userId')}/messages`)
+            .then(response => {
+                // console.log(response.data);
+                this.setState({userMessages: response.data});
+            })
+            .catch(error => console.log('Error in user message data', error))
+    }
+
+    // Post new message:
+
+    addMessage = (newMessage) =>{
+        console.log('new message in post req', newMessage);
+        axios
+            .post(`${baseURL}/users/${Cookies.get('userId')}/messages`, newMessage)
+            .then(response =>{
+                this.setState({userMessages: response.data.messages, });
+            })
+            .catch(error => console.log('Error in add new message', error));
+    }
+
+
 // CompoundDidMount():
 
     componentDidMount() {
@@ -210,6 +237,7 @@ class Main extends React.Component {
         this.getAllUserProfiles();
         this.getAssociatesData();
         this.getSellersData(); 
+        this.getUserMessages();
     }
     // console.log()
     render(){
@@ -238,13 +266,14 @@ class Main extends React.Component {
                                 <Route path='/logout' exact 
                                     render={(routerProps) =>{ return <Logout handleLogout={this.handleLogout}{...routerProps}/>}}
                                 />
-                                 <Route path='/users/:userId/create-profile' exact 
+                                <Route path='/users/:userId/create-profile' exact 
                                  render={(routerProps) =>{
                                     return <CreateProfile errorMsg={this.state.errorMessageCreateProfile} currentUserId={this.state.currentUserId}
                                                      handleCreateProfile={this.handleCreateProfile} 
                                                      allUserProfiles={this.state.allUserProfiles}{...routerProps}{...routerProps}/>
                                 }}
                                 />
+                                
                                 <Route path='/users/:userId/profile' exact 
                                         render={(routerProps) =>{
                                             return <Profile allUserProfiles={this.state.allUserProfiles}{...routerProps}/>
@@ -261,6 +290,7 @@ class Main extends React.Component {
                                              {...routerProps}/>
                                         }}
                                 />
+
                                 <Route path='/users/:userId/properties/:propertyId' exact 
                                         render={(routerProps) =>{
                                             return <UserPropertyDetails property=
@@ -278,6 +308,7 @@ class Main extends React.Component {
                                                 )} handleUpdateProperty={this.updateProperty} {...routerProps}/>
                                     }}
                                 />
+                                
                                 <Route path='/properties' exact
                                     render={(routerProps) =>{
                                         return <PropertiesList properties={this.state.properties} {...routerProps}/>
@@ -287,8 +318,15 @@ class Main extends React.Component {
                                 <Route path='/properties/:propertyId' exact
                                     render={(routerProps) =>{
                                         return <PropertyDetails property=
-                                                {this.state.properties.find(property => property.propertyId === routerProps.match.params.propertyId)} {...routerProps}/>
+                                                {this.state.properties.find(property => property.propertyId === routerProps.match.params.propertyId)} 
+                                                handleAddMessage={this.addMessage}
+                                                {...routerProps}/>
                                     }}
+                                />
+                                <Route path='/users/:userId/messages' exact 
+                                        render={(routerProps) =>{
+                                            return <MessageBox userMessages={this.state.userMessages}{...routerProps}/>
+                                        }}
                                 />
                                 <Route path='/associates' exact
                                     render={(routerProps) =>{

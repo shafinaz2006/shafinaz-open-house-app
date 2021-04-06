@@ -10,14 +10,26 @@ class PropertyDetails extends React.Component{
     state ={
         displayMessgeBox: false,
     }
+
+// opening message box modal:
+
     openMessageBox = (event) =>{
         event.preventDefault();
         this.setState({displayMessgeBox: true});
     }
+
+    // Closing message box modal:
+
     handleCloseMessageBox = (event) =>{
-        
         this.setState({displayMessageBox: false});
         window.location.reload();
+    }
+
+// handle message from Modal and pass it to Main.js:
+
+    handleMessageForm = (newMessage) =>{
+        console.log('inside Property Details handle Message Form', newMessage);
+        this.props.handleAddMessage(newMessage);
     }
     render(){
         let property = this.props.property;
@@ -55,7 +67,8 @@ class PropertyDetails extends React.Component{
                 </div>: ''
                 }
             </div>
-            {this.state.displayMessgeBox?<Message seller={property.seller} handleCloseMessageBox={this.handleCloseMessageBox}/>: ''}
+            {this.state.displayMessgeBox?<Message seller={property.seller} handleCloseMessageBox={this.handleCloseMessageBox}
+                                                    handleMessageForm={this.handleMessageForm}/>: ''}
             
         </section>
     )
