@@ -18,7 +18,8 @@ function Profile(props){
                 <h1 className='profile__heading'> Your profile is not created</h1>
                 <a href={`/users/${Cookies.get('userId')}/create-profile`} className= 'link button button--associateConnect'>Create Profile</a>
             </div>: 
-            <><h2 className='profile__heading profile__heading--center'>Your profile Information</h2>
+            <>
+            <h2 className='profile__heading'>Your profile Information</h2>
             <div className='profile__infoSection'>
                 
                 <div className='profile__content'>

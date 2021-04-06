@@ -154,7 +154,7 @@ class Main extends React.Component {
 
     getUserPropertiesData = () =>{
         axios
-            .get(`http://localhost:8080/users/${Cookies.get('userId')}/properties`, { withCredentials: true })
+            .get(`http://localhost:8080/users/${Cookies.get('userId')}/properties`)
             .then(response => {
                 // console.log(response.data);
                 this.setState({userProperties: response.data});

@@ -56,7 +56,7 @@ class AddProperty extends React.Component {
     // Image input handle: 
 
     imageInputHandler = (event) => {
-        console.log(event.target.files);
+        // console.log(event.target.files);
         this.setState({ selectedImage: event.target.files });
     }
 
@@ -81,7 +81,6 @@ class AddProperty extends React.Component {
         }
     }
 
-
     // Form Submit:
 
     handleFormSubmit = (event) => {
@@ -102,7 +101,7 @@ class AddProperty extends React.Component {
                 }
             }
             newData.append('sellerId', Cookies.get('userId'));
-            console.log('client side new property data', newData);
+            // console.log('client side new property data', newData);
             this.props.handleAddProperty(newData);
         }
     }

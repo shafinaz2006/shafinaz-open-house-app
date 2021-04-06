@@ -15,7 +15,7 @@ router.use(express.static("public"));
 
 router.get('/:userId/properties', (req, res) =>{
     let propertiesData = utils.getAllProperties();
-    console.log(req.params.userId);
+    // console.log(req.params.userId);
     let userPropertyData = propertiesData.filter(property => property.seller.userId === req.params.userId)
     if(userPropertyData) res.status(200).send(userPropertyData);
     else res.status(400).send('error in properties data');
@@ -76,7 +76,7 @@ router.post('/:userId/properties', (req, res) =>{
             }
         }
     }
-    console.log('newData before adding to file', newProperty) 
+    // console.log('newData before adding to file', newProperty) 
     let propertiesData = utils.getAllProperties();
     propertiesData.unshift(newProperty);
     fs.writeFileSync("./data/properties.json", JSON.stringify(propertiesData));
@@ -91,8 +91,10 @@ router.post('/:userId/properties', (req, res) =>{
 
 router.put('/:userId/properties/:propertyId/edit', (req, res) =>{
     let propertiesData = utils.getAllProperties();
-    let imageCollection = [...req.body.newImageCol];
-    
+    let imageCollection = [];
+    if(req.body.newImageCol){
+        imageCollection = [...req.body.newImageCol];
+    }
     if(req.files){
         let pic = req.files.image;
         let reqPath = path.join(__dirname, '../', 'public/myImages/');
@@ -105,6 +107,9 @@ router.put('/:userId/properties/:propertyId/edit', (req, res) =>{
             pic.mv(reqPath + pic.name);
             imageCollection.push(`http://localhost:8080/myImages/${pic.name}`);  
         }
+    }
+    if(!imageCollection.length){
+        imageCollection.push('http://localhost:8080/myImages/house-icon.svg');
     }
     // console.log(imageCollection);
     let updatedProperty={

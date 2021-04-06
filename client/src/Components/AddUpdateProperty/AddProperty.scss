@@ -19,6 +19,7 @@
     }
     &__formSubmitted {
         @include flex-column;
+        width: 75%;
         padding-top: 1rem;
         &--status {
             align-items: center;

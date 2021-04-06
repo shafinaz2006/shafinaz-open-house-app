@@ -4,7 +4,7 @@
     @include flex-column;
     width: 42%;
     padding-left: 5rem;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     &__status {
         @include flex-column;
@@ -15,9 +15,6 @@
         padding-bottom: 1.5rem;
         padding-top: 1rem;
         @include h2-sub-header;
-        &--center {
-            padding-left: 3.5rem;
-        }
     }
     &__infoSection {
         @include flex-column;
@@ -30,7 +27,6 @@
         padding-bottom: 1rem;
     }
     &__subHeading {
-        // padding-top: 0.75rem;
         font-weight: bold;
         margin-right: 1rem;
     }
@@ -42,7 +38,7 @@
         margin-top: 0.5rem;
     }
     &__referenceInfo {
-        padding-bottom: .5rem;
+        // padding-bottom: .5rem;
     }
     &__heading--ref {
         padding-top: 0.75rem;

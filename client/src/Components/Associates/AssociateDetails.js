@@ -32,10 +32,10 @@ class AssociateDetails extends React.Component{
                 <h3 className='associateDetails__name'> {associate.name}</h3>
                 <p className='associateDetails__prof'>{associate.profession}</p>
                 <p className='associateDetails__phone'>{associate.phone}</p>
-                <p className='associateDetails__email'>Email:{associate.email}</p>
+                <p className='associateDetails__email'>{associate.email}</p>
                 <h4 className='associateDetails__referee'>Referee information:</h4>
                 <h4 className='associateDetails__refName'>Name: {associate.refereeName}</h4>
-                <p className='associateDetails__refPhone'>Phone number: {associate.refereePhone}</p>
+                <p className='associateDetails__refPhone'>{associate.refereePhone}</p>
                 <div className='associateDetails__userButtons'>
                     <button className='button button--associateConnect' onClick={this.openMessageBox}>Message {firstName} </button>
                 </div>
