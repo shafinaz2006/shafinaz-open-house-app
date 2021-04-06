@@ -1,24 +1,32 @@
 import React from 'react';
 import './Home.scss';
+import logo from '../../assets/icons/home_black.svg';
 
 const Home = () =>{
     return(
         <section className='home'>
             <h1 className='home__heading'>Who we are?</h1>
             <p className='home__text'>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                when an unknown printer took a galley of type and scrambled it to make a type specimen 
-                book. It has survived not only five centuries, but also the leap into electronic 
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                <img src={logo} alt={logo} className='logo' />
+                Our goal is to give you an unique experience of buying and selling a house without hiring an agent. 
             </p>
             <p className='home__text'>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                when an unknown printer took a galley of type and scrambled it to make a type specimen 
-                book. It has survived not only five centuries, but also the leap into electronic 
-                typesetting, remaining essentially unchanged.
+                <img src={logo} alt={logo} className='logo' />
+                We are a platform for homer sellers, potential home buyers and other professionals.  
             </p>
+            <p className='home__text'>
+                <img src={logo} alt={logo} className='logo' /> 
+                We want you to save commission fee for an agent (3% to 7%), which can be $50,000(average) 
+                for a $M house. 
+            </p>
+            <p className='home__text'>
+                <img src={logo} alt={logo} className='logo' />
+                We help you by providing expert consulations from our associates.
+            </p>
+            <p className='home__text'>
+                <img src={logo} alt={logo} className='logo' />
+                We give you the opportunity, to connect people when you want to buy or sell a house. 
+            </p>           
         </section>
     )
 }

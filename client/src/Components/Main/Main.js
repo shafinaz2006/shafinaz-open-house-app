@@ -92,13 +92,11 @@ class Main extends React.Component {
 // Handle Create Profile:
 
     handleCreateProfile = (newProfile) =>{
-        // console.log('in handle create profile method', newProfile);
         axios
             .post('http://localhost:8080/profile', newProfile)
             .then(response =>{
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({allUserProfiles: response.data.userProfiles, sellers: response.data.sellers, associates: response.data.associates});
-
             })
             .catch(error => console.log('Error to create profile', error));
     }
@@ -215,9 +213,7 @@ class Main extends React.Component {
     }
     
     render(){
-        // console.log('username in cookies-', Cookies.get('username'));
-        if(this.state.properties && this.state.allUserProfiles 
-            && this.state.userProperties
+        if(this.state.properties && this.state.allUserProfiles && this.state.userProperties
             && this.state.associates && this.state.sellers){
             return (
                 <main className='pageContainer'>
