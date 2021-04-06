@@ -33,7 +33,7 @@ router.post('/', (req, res) =>{
         newData.refereePhone= req.body.refereePhone;
     }
     const allUserProfiles = utils.getAllUserProfiles();
-    allUserProfiles.push(newData);
+    allUserProfiles.unshift(newData);
     fs.writeFileSync("./data/userProfiles.json", JSON.stringify(allUserProfiles));
 
     let allSellers = utils.getAllSellers();

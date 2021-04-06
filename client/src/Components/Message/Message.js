@@ -8,15 +8,22 @@ class Message extends React.Component{
         this.props.handleCloseMessageBox();
     }
     render(){
+        let receiver;
+        if(this.props.seller){
+            receiver = {...this.props.seller};
+        } else if(this.props.associate){
+            receiver = {...this.props.associate};
+        }
+        console.log(receiver.name, receiver.phone)
         return(
-            <section className='message'>
+            <section className={ `message ${this.props.seller? 'message--seller': 'message--associate'}`}>
                 <div className='message__closeButtonDiv'>
                     <button className='button button--msgCancel message__cancelBtn' onClick={this.closeMessageBox}/>
                 </div>
                 <h1 className='message__heading'> Message Box </h1>
-                {this.props.seller? <div className='message__receiverInfo'>
-                            <p className='message__text'>Send to: <span className='message__receiverName'>{this.props.seller.name}</span></p>
-                            <p className='message__phone'>Phone: {this.props.seller.phone}</p>
+                {receiver? <div className='message__receiverInfo'>
+                            <p className='message__text'>Send to: <span className='message__receiverName'>{receiver.name}</span></p>
+                            <p className='message__phone'>Phone: {receiver.phone}</p>
                         </div>: ''}
                 <form className='message__senderInfo'>
                     <h3 className='message__subHeading'>Your information: </h3>

@@ -14,8 +14,8 @@ class PropertyDetails extends React.Component{
         event.preventDefault();
         this.setState({displayMessgeBox: true});
     }
-    handleCloseMessageBox = () =>{
-        console.log('in msg box close');
+    handleCloseMessageBox = (event) =>{
+        
         this.setState({displayMessageBox: false});
         window.location.reload();
     }
@@ -56,7 +56,7 @@ class PropertyDetails extends React.Component{
                 }
             </div>
             {this.state.displayMessgeBox?<Message seller={property.seller} handleCloseMessageBox={this.handleCloseMessageBox}/>: ''}
-            {/* <Message seller={property.seller}/> */}
+            
         </section>
     )
     }

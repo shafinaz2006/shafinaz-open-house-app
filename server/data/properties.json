@@ -20,29 +20,7 @@
             "email": "tashu@gmail.com"
         }
     },
-    {
-        "propertyId": "5b8c44cc-6146-4811-9f79-5f89e8b8a243",
-        "address": {
-            "street": "2414-2370 Pacific Way",
-            "city": "Kamloops"
-        },
-        "rooms": 3,
-        "washrooms": 2,
-        "description": "Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard, perfect for family gatherings! Come and take a look at this beauty....Don't miss out!",
-        "recentUpgrade": "So many upgradations",
-        "askingPrice": "239,000",
-        "images": [
-            "http://localhost:8080/myImages/IMG_6051.jpg",
-            "http://localhost:8080/myImages/douglas-sheppard-9rYfG8sWRVo-unsplash.jpg",
-            "http://localhost:8080/myImages/jason-briscoe-UV81E0oXXWQ-unsplash.jpg",
-            "http://localhost:8080/myImages/outsite-co-R-LK3sqLiBw-unsplash.jpg"
-        ],
-        "seller": {
-            "userId": "d7e3deb4-c223-4411-93b0-3e577a0ac4fc",
-            "username": "Taha",
-            "password": "$2b$12$.p5BrTp0hA1gO./u7Knmg.dPQc3qEGI/INMYD3jRebyywb4hhByhm"
-        }
-    },
+
     {
         "propertyId": "c5a76ce9-ba79-4ad4-85d9-9f2ca7685dcc",
         "address": {

@@ -1,8 +1,28 @@
 import React from 'react';
 import './AssociateList.scss';
 import profilePic from '../../assets/icons/profileIcon.svg'
-const AssociateDetails = ({associate}) =>{
-    let firstName= associate.name.split(' ')[0];
+import Message from '../Message/Message';
+
+class AssociateDetails extends React.Component{
+    state ={
+        displayMessgeBox: false,
+    }
+    openMessageBox = (event) =>{
+        event.preventDefault();
+        this.setState({displayMessgeBox: true});
+    }
+    handleCloseMessageBox = (event) =>{
+        
+        this.setState({displayMessageBox: false});
+        window.location.reload();
+    }
+    render(){
+        
+        let associate = {...this.props.associate};
+        
+        let firstName= associate.name.split(' ')[0];
+        let associateInfo = {name: associate.name, phone: associate.phone}
+        console.log(associateInfo)
     return(
         <section className='associateDetails'>
             <div className='associateDetails__profilePicDiv'>
@@ -16,11 +36,15 @@ const AssociateDetails = ({associate}) =>{
                 <h4 className='associateDetails__referee'>Referee information:</h4>
                 <h4 className='associateDetails__refName'>Name: {associate.refereeName}</h4>
                 <p className='associateDetails__refPhone'>Phone number: {associate.refereePhone}</p>
-                <a href = {`/associates/${associate.associateId}`} className='link button button--associateConnect'>
-                    Message {firstName}
-                </a>
+                <div className='associateDetails__userButtons'>
+                    <button className='button button--associateConnect' onClick={this.openMessageBox}>Message {firstName} </button>
+                </div>
             </div>
+            {this.state.displayMessgeBox?<Message 
+                associate={associateInfo} handleCloseMessageBox={this.handleCloseMessageBox}/>: ''}
+
         </section>
     )
+    }
 }
 export default AssociateDetails
