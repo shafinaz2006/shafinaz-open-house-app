@@ -6,6 +6,7 @@
         @include h1-page-header;
         margin-bottom: 1.5rem;
         margin-left: 1rem;
+        text-align: center;
         &--status {
             @include h2-sub-header;
             margin-top: 2rem;

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { baseURL } from '../../Utils/API_data';
 import './Main.scss';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Home from '../Home/Home';
@@ -45,7 +46,7 @@ class Main extends React.Component {
     handleRegistration = (newUser) =>{
         // console.log('in handleRegistration method', newUser);
         axios
-            .post('http://localhost:8080/register', newUser)
+            .post(`${baseURL}/register`, newUser)
             .then(response =>{
                 if(response.data.message.failure){
                     this.setState({errorMessageReg: response.data.message.failure})
@@ -69,13 +70,13 @@ class Main extends React.Component {
 
     handleLogin = (user) =>{
         axios
-            .post('http://localhost:8080/login', {username: user.username, password: user.password}, {withCredentials: true})
+            .post(`${baseURL}/login`, {username: user.username, password: user.password}, {withCredentials: true})
             .then(response =>{
                 if(response.data.message.failure){
                     this.setState({errorMessageLogin: response.data.message.failure})
                 }
                 else{
-                    console.log('response data after login', response.data);
+                    // console.log('response data after login', response.data);
                     this.setState({currentUserId: response.data.user.userId, currentUserName: response.data.user.username});
                     let username = response.data.user.username;
                     let userId = response.data.user.userId;
@@ -93,7 +94,7 @@ class Main extends React.Component {
 
     handleCreateProfile = (newProfile) =>{
         axios
-            .post('http://localhost:8080/profile', newProfile)
+            .post(`${baseURL}/profile`, newProfile)
             .then(response =>{
                 // console.log(response.data);
                 this.setState({allUserProfiles: response.data.userProfiles, sellers: response.data.sellers, associates: response.data.associates});
@@ -106,7 +107,7 @@ class Main extends React.Component {
 
     getAllUserProfiles = () =>{
         axios
-            .get('http://localhost:8080/profile')
+            .get(`${baseURL}/profile`)
             .then(response => {
                 this.setState({allUserProfiles: response.data.userProfiles, sellers: response.data.sellers, associates: response.data.associates});
             })
@@ -118,7 +119,7 @@ class Main extends React.Component {
 
     getAssociatesData = () =>{
         axios
-            .get('http://localhost:8080/associates')
+            .get(`${baseURL}/associates`)
             .then(response => {
                 this.setState({associates: response.data});
             })
@@ -129,7 +130,7 @@ class Main extends React.Component {
 
     getSellersData = () =>{
         axios
-            .get('http://localhost:8080/sellers')
+            .get(`${baseURL}/sellers`)
             .then(response => {
                 // console.log('sellers data in main', response.data)
                 this.setState({sellers: response.data});
@@ -142,7 +143,7 @@ class Main extends React.Component {
 
     getPropertiesData = () =>{
         axios
-            .get('http://localhost:8080/properties', { withCredentials: true })
+            .get(`${baseURL}/properties`)
             .then(response => {
                 // console.log(response.data);
                 this.setState({properties: response.data});
@@ -154,7 +155,7 @@ class Main extends React.Component {
 
     getUserPropertiesData = () =>{
         axios
-            .get(`http://localhost:8080/users/${Cookies.get('userId')}/properties`)
+            .get(`${baseURL}/users/${Cookies.get('userId')}/properties`)
             .then(response => {
                 // console.log(response.data);
                 this.setState({userProperties: response.data});
@@ -167,7 +168,7 @@ class Main extends React.Component {
     addProperty = (newProperty) =>{
         console.log(newProperty);
         axios
-            .post(`http://localhost:8080/users/${Cookies.get('userId')}/properties`, newProperty)
+            .post(`${baseURL}/users/${Cookies.get('userId')}/properties`, newProperty)
             .then(response =>{
                 this.setState({properties: response.data.properties, userProperties: response.data.userProperties});
             })
@@ -179,7 +180,7 @@ class Main extends React.Component {
     updateProperty = (propertyData, propertyId) =>{
         console.log('update property request', propertyData);
         axios
-            .put(`http://localhost:8080/users/${Cookies.get('userId')}/properties/${propertyId}/edit`, propertyData)
+            .put(`${baseURL}/users/${Cookies.get('userId')}/properties/${propertyId}/edit`, propertyData)
             .then(response =>{
                 this.setState({properties: response.data.properties, userProperties: response.data.userProperties});
             })
@@ -189,13 +190,12 @@ class Main extends React.Component {
 // Delete User Property:
 
     deleteProperty = (propertyId) =>{
-        let deleteURL = `http://localhost:8080/users/${Cookies.get('userId')}/properties/${propertyId}`
+        let deleteURL = `${baseURL}/users/${Cookies.get('userId')}/properties/${propertyId}`
         axios
             .delete(deleteURL)
             .then(response => {
                 // console.log('Property Deleted. Response status from delele request', response.status);
                 this.setState({properties: response.data.properties, userProperties: response.data.userProperties});
-                
             })
             .catch(error => {
                 console.log('Delete post has error: ', error);
@@ -211,10 +211,9 @@ class Main extends React.Component {
         this.getAssociatesData();
         this.getSellersData(); 
     }
-    
+    // console.log()
     render(){
-        if(this.state.properties && this.state.allUserProfiles && this.state.userProperties
-            && this.state.associates && this.state.sellers){
+        if(this.getAllUserProfiles()){
             return (
                 <main className='pageContainer'>
                     <LeftBar className='pageContainer__list' />
@@ -284,7 +283,6 @@ class Main extends React.Component {
                                         return <PropertiesList properties={this.state.properties} {...routerProps}/>
                                     }}
                                 />
-                                
                                 <Route path='/properties/add-property' exact
                                     render={(routerProps) =>{
                                         return <AddProperty handleAddProperty ={this.addProperty} {...routerProps}/>
@@ -296,7 +294,6 @@ class Main extends React.Component {
                                                 {this.state.properties.find(property => property.propertyId === routerProps.match.params.propertyId)} {...routerProps}/>
                                     }}
                                 />
-                                
                                 <Route path='/associates' exact
                                     render={(routerProps) =>{
                                         return <AssociateList associates={this.state.associates} {...routerProps}/>
@@ -316,7 +313,7 @@ class Main extends React.Component {
                     </div>
                 </main>
             );
-        } else   return( <main style={{textAlign: 'center'}}><h1>Page loading</h1></main> )
+        } else  return( <main style={{textAlign: 'center'}}><h1>Page loading</h1></main> )
     }
 }
 
