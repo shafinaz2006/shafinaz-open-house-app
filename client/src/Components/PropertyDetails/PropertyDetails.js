@@ -4,6 +4,7 @@ import './PropertyDetails.scss';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Message from '../Message/Message';
+import Cookies from 'js-cookie';
 
 class PropertyDetails extends React.Component{
 
@@ -61,7 +62,7 @@ class PropertyDetails extends React.Component{
                 </div>:
                 <p className='propertyDetails__sellerName'>Seller's contact information is not available.</p>
                 }
-                {property.seller.name?
+                {property.seller.name && Cookies.get('username')?
                 <div className='propertyDetails__userButtons'>
                     <button className='button button--propertyDetails' onClick={this.openMessageBox}>Connect with seller </button>
                 </div>: ''

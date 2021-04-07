@@ -24,6 +24,8 @@ Client side: $npm install
 
 * Create a local .env file for server side with PORT and BACKEND_URL. 
 
+* Run the application in incognito window of Chrome and in private window of Mozilla browser.
+
 
 ## Clone the latest files:
 

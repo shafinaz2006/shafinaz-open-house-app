@@ -21,6 +21,7 @@ function Header({ sessionUser }) {
                 Cookies.remove('username');
                 Cookies.remove('userId');
                 // window.location = "/logout"
+                // console.log('after logout', Cookies.get('username'))
             })
             .catch(error => console.log('Error in logout', error))
     }

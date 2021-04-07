@@ -37,7 +37,7 @@ class AssociateDetails extends React.Component{
                 <h4 className='associateDetails__refName'>{associate.refereeName}</h4>
                 <p className='associateDetails__refPhone'>{associate.refereePhone}</p>
                 <div className='associateDetails__userButtons'>
-                    <button className='button button--associateConnect' onClick={this.openMessageBox}>Message {firstName} </button>
+                    <button className='button button--associateConnect' >Message {firstName} </button>
                 </div>
             </div>
             {this.state.displayMessgeBox?<Message 

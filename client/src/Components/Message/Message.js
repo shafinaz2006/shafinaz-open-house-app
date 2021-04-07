@@ -28,6 +28,7 @@ class Message extends React.Component{
             receiverName: this.state.receiverName,
             message: this.state.message
         }
+        console.log('new message');
         this.setState({message: ''});
         this.props.handleMessageForm(newMessage);
         this.closeMessageBox();

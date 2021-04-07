@@ -187,7 +187,7 @@ router.post('/:userId/messages', (req, res) =>{
         receiverName: req.body.receiverName,
         message: req.body.message
     }
-    // console.log(newMessage)
+    console.log(newMessage)
     let allMessages =  utils.getAllMessages();
     allMessages.unshift(newMessage);
     fs.writeFileSync("./data/messages.json", JSON.stringify(allMessages));

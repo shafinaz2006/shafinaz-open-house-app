@@ -27,7 +27,9 @@
         background-color: $white;
     }
     &--propList {
-        width: 40%;
+        width: fit-content;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
     &--alignEnd {
         align-self: flex-end;
