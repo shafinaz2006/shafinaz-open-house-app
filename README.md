@@ -9,7 +9,7 @@ A platform for potential home buyers, sellers and professionals related with hom
 
 * NPM: 
 
-Server side: $ npm install
+Server side: $npm install
 
 * REACT:
  
@@ -17,7 +17,6 @@ Client side: $npm install
 
 
 ## Running the script:
-
 
 * Server side: $nodemon index.js
 
@@ -28,7 +27,9 @@ Client side: $npm install
 
 ## Clone the latest files:
 
-
 $git clone https://github.com/shafinaz2006/shafinaz-open-house-app.git
 
-### For any query, contact at shafinaz2006@gmail.com
+
+### Contact: 
+
+shafinaz2006@gmail.com
