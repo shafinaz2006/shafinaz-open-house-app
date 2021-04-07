@@ -308,13 +308,11 @@ class Main extends React.Component {
                                                 )} handleUpdateProperty={this.updateProperty} {...routerProps}/>
                                     }}
                                 />
-                                
                                 <Route path='/properties' exact
                                     render={(routerProps) =>{
                                         return <PropertiesList properties={this.state.properties} {...routerProps}/>
                                     }}
                                 />
-                                
                                 <Route path='/properties/:propertyId' exact
                                     render={(routerProps) =>{
                                         return <PropertyDetails property=
